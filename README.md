@@ -20,3 +20,9 @@
 - We always prefer the code that is robust, easy to read and re-usable
 - Make design user friendly
 - Have fun!
+
+# Response from Fullstack Developer :)
+
+# Running
+
+1. Add your local database credentials to `.env` file.
