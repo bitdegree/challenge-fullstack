@@ -11,6 +11,4 @@
 |
 */
 
-Auth::routes();
-
-Route::get('/', 'CommentController@index')->name("home");
+Route::get('/', 'PageController@index')->name("home");

@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-class CommentController extends Controller
+class PageController extends Controller
 {
 
     /**
-     * Show the controller task.
+     * Shows single page application.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        return view('comment');
+        return view('app');
     }
 
 }
