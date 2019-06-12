@@ -1915,7 +1915,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      'status': "IDLE"
+    };
+  },
   props: ['jwt', 'user']
 });
 
@@ -37714,29 +37764,130 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass: "row justify-content-center my-5",
+      attrs: { id: "commentCard" }
+    },
+    [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Comment Box!")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            this.user === null
+              ? _c("div", { staticClass: "w-100 text-center" }, [
+                  _c("p", [
+                    _vm._v("Tik prisijungę vartotojai gali rašyti komentarą!")
+                  ])
+                ])
+              : _vm.status === "IDLE"
+              ? _c("div", { staticClass: "w-100 text-center" }, [
+                  _c("button", { staticClass: "btn btn-success w-50" }, [
+                    _vm._v("Post a comment")
+                  ])
+                ])
+              : _vm.status === "POSTING"
+              ? _c("div", { staticClass: "w-100" }, [
+                  _c("input", { attrs: { placeholder: "Text" } }),
+                  _vm._v(" "),
+                  _c("button", { staticClass: "btn btn-success" }, [
+                    _vm._v("Post")
+                  ]),
+                  _vm._v(" "),
+                  _c("button", { staticClass: "btn btn-secondary" }, [
+                    _vm._v("Cancel")
+                  ])
+                ])
+              : _vm._e()
+          ])
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "row justify-content-center my-5",
-        attrs: { id: "commentCard" }
-      },
-      [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Comment Box!")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" })
+    return _c("div", { staticClass: "w-100" }, [
+      _c("p", [
+        _vm._v("x Earlier Comments. "),
+        _c("a", [_vm._v("Load more...")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "w-100 my-4" }, [
+      _c("div", { staticClass: "w-100 row border-bottom border-top py-3" }, [
+        _c("div", { staticClass: "col-2" }, [
+          _c("img", {
+            staticClass: "w-100 h-auto",
+            attrs: {
+              src:
+                "http://i.dailymail.co.uk/i/pix/2015/09/01/18/2BE1E88B00000578-3218613-image-m-5_1441127035222.jpg"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-10" }, [
+          _c("p", [_c("b", [_vm._v("Karolis Kraujelis")]), _vm._v(" 5:12 PM")]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("Hello World this is a very good comment which I like.")
           ])
         ])
-      ]
-    )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-100 row border-bottom py-3" }, [
+        _c("div", { staticClass: "col-2" }, [
+          _c("img", {
+            staticClass: "w-100 h-auto",
+            attrs: {
+              src:
+                "http://i.dailymail.co.uk/i/pix/2015/09/01/18/2BE1E88B00000578-3218613-image-m-5_1441127035222.jpg"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-10" }, [
+          _c("p", [_c("b", [_vm._v("Karolis Kraujelis")]), _vm._v(" 5:12 PM")]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("Hello World this is a very good comment which I like.")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-100 row border-bottom py-3" }, [
+        _c("div", { staticClass: "col-2" }, [
+          _c("img", {
+            staticClass: "w-100 h-auto",
+            attrs: {
+              src:
+                "http://i.dailymail.co.uk/i/pix/2015/09/01/18/2BE1E88B00000578-3218613-image-m-5_1441127035222.jpg"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-10" }, [
+          _c("p", [_c("b", [_vm._v("Karolis Kraujelis")]), _vm._v(" 5:12 PM")]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("Hello World this is a very good comment which I like.")
+          ])
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true

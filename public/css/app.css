@@ -10673,3 +10673,8 @@ a.text-dark:focus {
   padding-bottom: 0;
 }
 
+#commentCard p {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
