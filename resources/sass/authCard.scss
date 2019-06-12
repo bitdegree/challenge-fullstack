@@ -1,0 +1,35 @@
+
+
+#authCard {
+
+  .card-body {
+
+    padding-top: 0;
+
+    hr {
+      width: 75%;
+    }
+
+    input {
+      width: 75%;
+      display: inline-block;
+    }
+
+    .btn {
+      width: 40%;
+    }
+
+    .alert {
+      display: inline-block;
+      width: 75%;
+
+      p {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+    }
+
+  }
+
+}

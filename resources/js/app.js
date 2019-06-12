@@ -19,7 +19,15 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('comment-vue-component', require('./components/CommentComponent.vue').default);
+Vue.use(
+    require('vue-cookies')
+);
+
+Vue.component(
+    'auth-card', require('./components/AuthCard').default
+);
+Vue.component('comment-card', require('./components/CommentCard').default);
+Vue.component('page-wrapper', require('./components/PageWrapper').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,5 +36,5 @@ Vue.component('comment-vue-component', require('./components/CommentComponent.vu
  */
 
 const app = new Vue({
-    el: '#app',
+    el: '#app'
 });

@@ -4,10 +4,25 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'failLogin']]);
+    }
+
+    public function failLogin() {
+        return response()->json(
+            [
+                "message" => "Your session is expired!"
+            ],
+            402
+        );
+    }
+
     /**
      * Logins with raw authenthication
      */
@@ -18,21 +33,21 @@ class AuthController extends Controller
             "password" => $request->get("password", null)
         ];
 
-        if(!$token = auth()->attempt($credentials))
+        if (!$token = Auth::guard('api')->attempt($credentials))
             return response()->json(
                 [
                     'error' => 'Unauthorized',
                     'message' => 'Wrong username or password'
                 ],
-                402
+                401
             );
 
-        return $this->respondWithToken($token);
+        return $this->respondWithToken($token, auth()->user());
     }
 
     public function logout(Request $request)
     {
-        auth()->logout();
+        Auth::guard('api')->logout();
 
         return response()->json(
             [
@@ -92,19 +107,28 @@ class AuthController extends Controller
             ]
         );
 
-        $token = auth()->login($user);
+        $token = Auth::guard('api')->login($user);
 
         return $this->respondWithToken(
-            $token
+            $token,
+            $user
         );
     }
 
-    protected function respondWithToken($token)
+    public function status() {
+        return $this->respondWithToken(
+            Auth::guard('api')->refresh(),
+            Auth::guard('api')->user()
+        );
+    }
+
+    protected function respondWithToken($token, $user)
     {
         return response()->json(
             [
                 "token" => $token,
-                "ttl" => auth()->factory()->getTTL() * 60
+                "ttl" => Auth::guard('api')->factory()->getTTL() * 60,
+                "user" => $user
             ]
         );
     }

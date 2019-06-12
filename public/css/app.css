@@ -10646,3 +10646,30 @@ a.text-dark:focus {
   }
 }
 
+#authCard .card-body {
+  padding-top: 0;
+}
+
+#authCard .card-body hr {
+  width: 75%;
+}
+
+#authCard .card-body input {
+  width: 75%;
+  display: inline-block;
+}
+
+#authCard .card-body .btn {
+  width: 40%;
+}
+
+#authCard .card-body .alert {
+  display: inline-block;
+  width: 75%;
+}
+
+#authCard .card-body .alert p {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+

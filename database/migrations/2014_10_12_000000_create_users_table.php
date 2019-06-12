@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('lastName');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('avatarURL')->default("http://s3.amazonaws.com/37assets/svn/765-default-avatar.png");
             $table->timestamps();
         });
     }
