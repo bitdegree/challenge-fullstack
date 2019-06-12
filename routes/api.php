@@ -16,3 +16,5 @@ Route::post('/login', 'AuthController@login')->name("login");
 Route::post('/logout', 'AuthController@logout')->name("logout");
 Route::post('/status', 'AuthController@status')->name("status");
 Route::get('/login/failed', 'AuthController@failLogin')->name("failLogin");
+Route::get('/comments', 'CommentController@index')->name("comments");
+Route::post('/comments', 'CommentController@store')->name("comments_store");
