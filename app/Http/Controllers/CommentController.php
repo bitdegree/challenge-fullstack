@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,7 +11,7 @@ class CommentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->only('post');
+        $this->middleware('auth:api')->only('store');
     }
 
     public function index() {
@@ -22,6 +23,36 @@ class CommentController extends Controller
 
         return response()->json(
             $comments
+        );
+    }
+
+    public function viewReplies($id) {
+        $comment = Comment::find($id);
+
+        if($comment === null)
+            return response()->json(
+                [
+                    "message" => 'id was invalid!'
+                ],
+                400
+            );
+
+        $user = User::find($comment->author_id);
+        $comment->firstName = $user->firstName;
+        $comment->lastName = $user->lastName;
+        $comment->avatarURL = $user->avatarURL;
+
+        $comments = Comment::where('parent_id', $id)
+            ->join('users', 'comments.author_id', '=', 'users.id')
+            ->select('comments.*', 'users.firstName', 'users.lastName', 'users.avatarURL')
+            ->orderBy('comments.created_at', 'asc')
+            ->get();
+
+        return response()->json(
+            array_merge(
+                [$comment],
+                $comments->toArray()
+            )
         );
     }
 

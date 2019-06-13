@@ -1959,6 +1959,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1969,7 +1983,8 @@ __webpack_require__.r(__webpack_exports__);
         text: null
       },
       comments: [],
-      parentComment: null
+      parentComment: null,
+      backEnabled: false
     };
   },
   props: ['jwt', 'user'],
@@ -1977,18 +1992,34 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchComments();
   },
   methods: {
+    goBack: function goBack(event) {
+      event.preventDefault();
+      this.fetchComments();
+    },
     switchToPosting: function switchToPosting() {
       var parent = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       this.status = "POSTING";
       this.postData.parent = parent;
       console.log(this.postData.parent);
     },
-    viewReplies: function viewReplies(parent) {},
+    viewReplies: function viewReplies(parent) {
+      var _this = this;
+
+      this.comments = [];
+      fetch("".concat(location.protocol, "//").concat(location.host, "/api/comments/").concat(parent), {
+        method: "GET"
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this.comments = json;
+        _this.backEnabled = true;
+      });
+    },
     switchToIdle: function switchToIdle() {
       this.status = "IDLE";
     },
     fetchComments: function fetchComments() {
-      var _this = this;
+      var _this2 = this;
 
       this.comments = [];
       fetch("".concat(location.protocol, "//").concat(location.host, "/api/comments"), {
@@ -1996,11 +2027,12 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        _this.comments = json;
+        _this2.comments = json;
+        _this2.backEnabled = false;
       });
     },
     postComment: function postComment() {
-      var _this2 = this;
+      var _this3 = this;
 
       fetch("".concat(location.protocol, "//").concat(location.host, "/api/comments"), {
         method: 'POST',
@@ -2015,13 +2047,13 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        if (json.message !== undefined) _this2.postData.error = json.message;else {
-          _this2.status = "IDLE";
-          _this2.postData.error = null;
-          _this2.postData.parent = null;
-          _this2.postData.text = null;
+        if (json.message !== undefined) _this3.postData.error = json.message;else {
+          _this3.status = "IDLE";
+          _this3.postData.error = null;
+          _this3.postData.parent = null;
+          _this3.postData.text = null;
 
-          _this2.fetchComments();
+          _this3.fetchComments();
         }
       });
     }
@@ -37859,7 +37891,18 @@ var render = function() {
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "w-100" }, [
               _c("p", { staticClass: "my-2" }, [
-                _vm._v(_vm._s(_vm.comments.length) + " comments.")
+                _vm._v(_vm._s(_vm.comments.length) + " comments."),
+                _vm.backEnabled
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "ml-3",
+                        attrs: { href: "#" },
+                        on: { click: _vm.goBack }
+                      },
+                      [_vm._v("Return...")]
+                    )
+                  : _vm._e()
               ])
             ]),
             _vm._v(" "),
@@ -37899,62 +37942,77 @@ var render = function() {
                               _vm._s(comment.lastName)
                           )
                         ]),
-                        _vm._v(" " + _vm._s(comment.created_at))
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(comment.created_at)
+                        )
                       ]),
                       _vm._v(" "),
                       _c("p", [_vm._v(_vm._s(comment.content))]),
                       _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      comment.num_replies === 0
-                        ? _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-success",
-                              attrs: { disabled: "" }
-                            },
-                            [_vm._v("View 0 replies")]
-                          )
-                        : _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-success",
-                              on: {
-                                click: function($event) {
-                                  return _vm.viewReplies(_vm.commment.id)
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "View " +
-                                  _vm._s(comment.num_replies) +
-                                  " replies"
-                              )
-                            ]
-                          ),
-                      _vm._v(" "),
-                      _vm.user === null
-                        ? _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-success",
-                              attrs: { disabled: "" }
-                            },
-                            [_vm._v("Reply")]
-                          )
-                        : _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-success",
-                              on: {
-                                click: function($event) {
-                                  return _vm.switchToPosting(comment)
-                                }
-                              }
-                            },
-                            [_vm._v("Reply")]
-                          )
+                      !_vm.backEnabled
+                        ? _c("div", [
+                            _c("hr"),
+                            _vm._v(" "),
+                            comment.num_replies === 0
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success",
+                                    attrs: { disabled: "" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "View 0\n                                    replies\n                                "
+                                    )
+                                  ]
+                                )
+                              : _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.viewReplies(comment.id)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "View\n                                    " +
+                                        _vm._s(comment.num_replies) +
+                                        " replies\n                                "
+                                    )
+                                  ]
+                                ),
+                            _vm._v(" "),
+                            _vm.user === null
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success",
+                                    attrs: { disabled: "" }
+                                  },
+                                  [_vm._v("Reply")]
+                                )
+                              : _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.switchToPosting(comment)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "Reply\n                                "
+                                    )
+                                  ]
+                                )
+                          ])
+                        : _vm._e()
                     ])
                   ]
                 )
@@ -37970,18 +38028,43 @@ var render = function() {
                 ])
               : _vm.status === "IDLE"
               ? _c("div", { staticClass: "w-100 text-center" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-success w-50",
-                      on: {
-                        click: function($event) {
-                          return _vm.switchToPosting()
-                        }
-                      }
-                    },
-                    [_vm._v("Post a comment")]
-                  )
+                  !_vm.backEnabled
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success w-50",
+                          on: {
+                            click: function($event) {
+                              return _vm.switchToPosting()
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "Post a\n                        comment\n                    "
+                          )
+                        ]
+                      )
+                    : _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success w-50",
+                          on: {
+                            click: function($event) {
+                              return _vm.switchToPosting(_vm.comments[0])
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "Reply to\n                        " +
+                              _vm._s(_vm.comments[0].firstName) +
+                              " " +
+                              _vm._s(_vm.comments[0].lastName) +
+                              " comment\n                    "
+                          )
+                        ]
+                      )
                 ])
               : _vm.status === "POSTING"
               ? _c("div", { staticClass: "w-100" }, [

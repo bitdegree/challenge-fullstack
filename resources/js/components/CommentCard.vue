@@ -6,7 +6,8 @@
 
                 <div class="card-body">
                     <div class="w-100">
-                        <p class="my-2">{{comments.length}} comments.</p>
+                        <p class="my-2">{{comments.length}} comments.<a class="ml-3" v-if="backEnabled" href="#"
+                                                                        v-on:click="goBack">Return...</a></p>
                     </div>
                     <div v-if="comments.length === 0" class="w-100 text-center border-bottom border-top">
                         <h5 class="text-muted my-5">No comments were found!</h5>
@@ -18,15 +19,23 @@
                                      v-bind:src="comment.avatarURL"/>
                             </div>
                             <div class="col-10">
-                                <p class="text-muted"><b class="mr-4">{{comment.firstName}} {{comment.lastName}}</b> {{comment.created_at}}</p>
+                                <p class="text-muted"><b class="mr-4">{{comment.firstName}} {{comment.lastName}}</b>
+                                    {{comment.created_at}}</p>
                                 <p>{{comment.content}}</p>
-                                <hr>
+                                <div v-if="!backEnabled">
+                                    <hr>
 
-                                <button v-if="comment.num_replies === 0" class="btn btn-success" disabled>View 0 replies</button>
-                                <button v-else class="btn btn-success" v-on:click="viewReplies(commment.id)">View {{comment.num_replies}} replies</button>
+                                    <button v-if="comment.num_replies === 0" class="btn btn-success" disabled>View 0
+                                        replies
+                                    </button>
+                                    <button v-else class="btn btn-success" v-on:click="viewReplies(comment.id)">View
+                                        {{comment.num_replies}} replies
+                                    </button>
 
-                                <button v-if="user === null" class="btn btn-success" disabled>Reply</button>
-                                <button v-else class="btn btn-success" v-on:click="switchToPosting(comment)">Reply</button>
+                                    <button v-if="user === null" class="btn btn-success" disabled>Reply</button>
+                                    <button v-else class="btn btn-success" v-on:click="switchToPosting(comment)">Reply
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -34,7 +43,12 @@
                         <p>Tik prisijungę vartotojai gali rašyti komentarą!</p>
                     </div>
                     <div v-else-if="status === 'IDLE'" class="w-100 text-center">
-                        <button class="btn btn-success w-50" v-on:click="switchToPosting()">Post a comment</button>
+                        <button v-if="!backEnabled" class="btn btn-success w-50" v-on:click="switchToPosting()">Post a
+                            comment
+                        </button>
+                        <button v-else class="btn btn-success w-50" v-on:click="switchToPosting(comments[0])">Reply to
+                            {{comments[0].firstName}} {{comments[0].lastName}} comment
+                        </button>
                     </div>
                     <div v-else-if="status === 'POSTING'" class="w-100">
                         <div class="text-center">
@@ -67,7 +81,8 @@
                     text: null,
                 },
                 comments: [],
-                parentComment: null
+                parentComment: null,
+                backEnabled: false
             }
         },
         props: [
@@ -78,14 +93,35 @@
             this.fetchComments();
         },
         methods: {
+            goBack: function (event) {
+                event.preventDefault();
+
+                this.fetchComments();
+            },
             switchToPosting: function (parent = null) {
                 this.status = "POSTING";
                 this.postData.parent = parent;
 
                 console.log(this.postData.parent);
             },
-            viewReplies: function(parent) {
+            viewReplies: function (parent) {
+                this.comments = [];
 
+                fetch(
+                    `${location.protocol}//${location.host}/api/comments/${parent}`,
+                    {
+                        method: "GET"
+                    }
+                ).then(
+                    (response) => {
+                        return response.json();
+                    }
+                ).then(
+                    (json) => {
+                        this.comments = json;
+                        this.backEnabled = true;
+                    }
+                )
             },
             switchToIdle: function () {
                 this.status = "IDLE";
@@ -105,6 +141,7 @@
                 ).then(
                     (json) => {
                         this.comments = json;
+                        this.backEnabled = false;
                     }
                 )
             },
