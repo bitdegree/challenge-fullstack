@@ -78,7 +78,16 @@ class CommentController extends Controller
                 return response()->json(
                     [
                         "message" => "Parent comment id is invalid!"
-                    ]
+                    ],
+                    400
+                );
+
+            if($parentComment->parent_id !== null)
+                return response()->json(
+                    [
+                        "message" => "Only to levels of replies are supported!"
+                    ],
+                    400
                 );
 
             $parentComment->num_replies++;

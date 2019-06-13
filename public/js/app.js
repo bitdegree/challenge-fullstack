@@ -2052,8 +2052,7 @@ __webpack_require__.r(__webpack_exports__);
           _this3.postData.error = null;
           _this3.postData.parent = null;
           _this3.postData.text = null;
-
-          _this3.fetchComments();
+          if (_this3.backEnabled) _this3.viewReplies(_this3.comments[0].id);else _this3.fetchComments();
         }
       });
     }

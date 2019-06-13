@@ -174,7 +174,12 @@
                             this.postData.parent = null;
                             this.postData.text = null;
 
-                            this.fetchComments();
+                            if (this.backEnabled)
+                                this.viewReplies(
+                                    this.comments[0].id
+                                );
+
+                            else this.fetchComments();
                         }
                     }
                 )
