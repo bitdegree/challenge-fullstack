@@ -1765,6 +1765,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1882,11 +1888,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     logout: function logout() {
-      this.jwt = null;
-      this.user = null;
-      this.page = "INFO";
-      this.$cookies.remove('jwt');
-      this.$emit("on-auth-status-changed", null, null);
+      var _this4 = this;
+
+      fetch("".concat(location.protocol, "//").concat(location.host, "/api/register"), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          token: this.jwt
+        })
+      }).then(function () {
+        _this4.jwt = null;
+        _this4.user = null;
+        _this4.page = "INFO";
+
+        _this4.$cookies.remove('jwt');
+
+        _this4.$emit("on-auth-status-changed", null, null);
+      });
     }
   }
 });
@@ -37552,7 +37572,7 @@ var render = function() {
                           "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1",
                         on: { click: _vm.registerSwitch }
                       },
-                      [_vm._v("Register")]
+                      [_vm._v("Register\n                    ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -37562,7 +37582,7 @@ var render = function() {
                           "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1",
                         on: { click: _vm.loginSwitch }
                       },
-                      [_vm._v("Login")]
+                      [_vm._v("Login\n                    ")]
                     )
                   ]
                 )
@@ -37843,7 +37863,7 @@ var render = function() {
                           "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1",
                         on: { click: _vm.logout }
                       },
-                      [_vm._v("Log out")]
+                      [_vm._v("Log out\n                    ")]
                     )
                   ]
                 )

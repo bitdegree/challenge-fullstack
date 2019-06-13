@@ -11,8 +11,12 @@
                     <h2 class="my-5">You're not logged in!</h2>
 
                     <div class="row w-100 justify-content-center d-inline-block">
-                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1" v-on:click="registerSwitch">Register</button>
-                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1" v-on:click="loginSwitch">Login</button>
+                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1"
+                                v-on:click="registerSwitch">Register
+                        </button>
+                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1"
+                                v-on:click="loginSwitch">Login
+                        </button>
                     </div>
                 </div>
                 <div v-if="page === 'LOGIN'" class="card-body text-center">
@@ -54,7 +58,9 @@
 
                     <div class="row w-100 justify-content-center d-inline-block">
                         <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1">Set avatar</button>
-                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1" v-on:click="logout">Log out</button>
+                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1"
+                                v-on:click="logout">Log out
+                        </button>
                     </div>
                 </div>
             </div>
@@ -92,7 +98,7 @@
         mounted() {
             let jwt = this.$cookies.get("jwt");
 
-            if(jwt !== undefined)
+            if (jwt !== undefined)
                 fetch(`${location.protocol}//${location.host}/api/status`, {
                     method: 'POST',
                     headers: {
@@ -214,13 +220,26 @@
                 );
             },
             logout: function () {
-                this.jwt = null;
-                this.user = null;
-                this.page = "INFO";
+                fetch(
+                    `${location.protocol}//${location.host}/api/register`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            token: this.jwt
+                        })
+                    }
+                ).then(() => {
+                    this.jwt = null;
+                    this.user = null;
+                    this.page = "INFO";
 
-                this.$cookies.remove('jwt');
+                    this.$cookies.remove('jwt');
 
-                this.$emit("on-auth-status-changed", null, null);
+                    this.$emit("on-auth-status-changed", null, null);
+                });
             }
         }
     }
