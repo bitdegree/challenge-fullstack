@@ -37634,8 +37634,8 @@ var render = function() {
                 "div",
                 { staticClass: "card-body text-center" },
                 [
-                  _c("h2", { staticClass: "my-5" }, [
-                    _vm._v("You're not logged in!")
+                  _c("h2", { staticClass: "mt-5 mb-4" }, [
+                    _vm._v("Please authenticate!")
                   ]),
                   _vm._v(" "),
                   _c(
@@ -37900,7 +37900,7 @@ var render = function() {
             ? _c("div", { staticClass: "card-body text-center" }, [
                 _c("h2", { staticClass: "my-5" }, [
                   _vm._v(
-                    "Welcome back, " +
+                    "Welcome, " +
                       _vm._s(_vm.user.firstName) +
                       " " +
                       _vm._s(_vm.user.lastName)
@@ -38138,7 +38138,9 @@ var render = function() {
             _vm.user === null
               ? _c("div", { staticClass: "w-100 text-center" }, [
                   _c("p", [
-                    _vm._v("Tik prisijungę vartotojai gali rašyti komentarą!")
+                    _vm._v(
+                      "Only authenticated users are able to write replies!"
+                    )
                   ])
                 ])
               : _vm.status === "IDLE"

@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div v-if="user === null" class="w-100 text-center">
-                        <p>Tik prisijungę vartotojai gali rašyti komentarą!</p>
+                        <p>Only authenticated users are able to write replies!</p>
                     </div>
                     <div v-else-if="status === 'IDLE'" class="w-100 text-center">
                         <button v-if="!backEnabled" class="btn btn-success w-50" v-on:click="switchToPosting()">Post a

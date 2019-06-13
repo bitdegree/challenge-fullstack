@@ -10,7 +10,7 @@ import GoogleLogin from 'vue-google-login';
                 <div v-else class="card-header">Authenthication card!</div>
 
                 <div v-if="page === 'INFO'" class="card-body text-center">
-                    <h2 class="my-5">You're not logged in!</h2>
+                    <h2 class="mt-5 mb-4">Please authenticate!</h2>
 
                     <div class="row w-100 justify-content-center d-inline-block">
                         <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary mt-4 ml-1"
@@ -52,7 +52,7 @@ import GoogleLogin from 'vue-google-login';
                     <button class="btn btn-secondary my-4" v-on:click="registerAttempt">Register</button>
                 </div>
                 <div v-if="page === 'DASHBOARD'" class="card-body text-center">
-                    <h2 class="my-5">Welcome back, {{user.firstName}} {{user.lastName}}</h2>
+                    <h2 class="my-5">Welcome, {{user.firstName}} {{user.lastName}}</h2>
 
                     <div v-if="avatarData.error !== null" class="alert alert-danger">
                         <p>{{avatarData.error}}</p>
