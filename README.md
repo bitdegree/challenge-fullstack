@@ -9,7 +9,7 @@
 ## Requirements
 - [x] Only authenticated users should be able to post a comment or reply.
 - [x] Ability to authenticate using at least 1 social network (Google)
-- [] Create Seeders
+- [x] Create Seeders
 - [x] It should be possible to reply to nested comments
 - [x] Design must be responsive.
 - [x] Use Laravel and Vue.js
@@ -30,6 +30,7 @@
 3. Run `npm install` this will install all JS and SCSS front-end dependencies.
 4. Update mysql credentials in `.env` file.
 5. Run `php artisan migrate:fresh` to generate all the required tables in the database.
-6. Run `npm run dev` to generate all front-end files.
-7. Run `php artisan serve` to locally host this PHP challenge.
-8. Open `http://localhost:8000` and explore this awesome (or maybe not?) challenge.
+6. Run `php artisan db:seed` to generate fake data into the repository.
+7. Run `npm run dev` to generate all front-end files.
+8. Run `php artisan serve` to locally host this PHP challenge.
+9. Open `http://localhost:8000` and explore this awesome (or maybe not?) challenge.
