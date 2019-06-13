@@ -6,4 +6,20 @@
     padding-bottom: 0;
   }
 
+  .card-body {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .alert {
+    display: inline-block;
+    width: 75%;
+
+    p {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+  }
+
 }

@@ -14,17 +14,19 @@ class CommentController extends Controller
     }
 
     public function index() {
-        $comments = Comment::where('parent_id', null)
-            ->orderBy('createdAt', 'asc')
-            ->take(10);
+        $comments = Comment::whereNull('parent_id')
+            ->join('users', 'comments.author_id', '=', 'users.id')
+            ->select('comments.*', 'users.firstName', 'users.lastName', 'users.avatarURL')
+            ->orderBy('comments.created_at', 'asc')
+            ->get();
 
         return response()->json(
             $comments
         );
     }
 
-    public function post(Request $request) {
-        $user = Auth::guard('jwt')->user();
+    public function store(Request $request) {
+        $user = Auth::guard('api')->user();
         $parent = $request->get('parent', null);
         $content = $request->get('content', null);
 

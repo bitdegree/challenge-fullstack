@@ -1960,13 +1960,58 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      'status': "IDLE"
+      status: "IDLE",
+      postData: {
+        error: null,
+        parent: null,
+        text: null
+      },
+      comments: []
     };
   },
-  props: ['jwt', 'user']
+  props: ['jwt', 'user'],
+  methods: {
+    switchToPosting: function switchToPosting() {
+      this.status = "POSTING";
+    },
+    switchToIdle: function switchToIdle() {
+      this.status = "IDLE";
+    },
+    postComment: function postComment() {
+      var _this = this;
+
+      fetch("".concat(location.protocol, "//").concat(location.host, "/api/comments"), {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          token: this.jwt,
+          content: this.postData.text,
+          parent: this.postData.parent === null ? null : this.postData.parent.id
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        if (json.message !== undefined) _this.postData.error = json.message;else {
+          _this.status = "IDLE";
+          _this.postData.error = null;
+          _this.postData.parent = null;
+          _this.postData.text = null;
+
+          _this.comments.push(json);
+        }
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -37788,21 +37833,65 @@ var render = function() {
                 ])
               : _vm.status === "IDLE"
               ? _c("div", { staticClass: "w-100 text-center" }, [
-                  _c("button", { staticClass: "btn btn-success w-50" }, [
-                    _vm._v("Post a comment")
-                  ])
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success w-50",
+                      on: { click: _vm.switchToPosting }
+                    },
+                    [_vm._v("Post a comment")]
+                  )
                 ])
               : _vm.status === "POSTING"
               ? _c("div", { staticClass: "w-100" }, [
-                  _c("input", { attrs: { placeholder: "Text" } }),
-                  _vm._v(" "),
-                  _c("button", { staticClass: "btn btn-success" }, [
-                    _vm._v("Post")
+                  _c("div", { staticClass: "text-center" }, [
+                    _vm.postData.error !== null
+                      ? _c("div", { staticClass: "alert alert-danger" }, [
+                          _c("p", [_vm._v(_vm._s(_vm.postData.error))])
+                        ])
+                      : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _c("button", { staticClass: "btn btn-secondary" }, [
-                    _vm._v("Cancel")
-                  ])
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.postData.text,
+                        expression: "postData.text"
+                      }
+                    ],
+                    staticClass: "w-100 d-inline-block",
+                    attrs: { placeholder: "Your comment..." },
+                    domProps: { value: _vm.postData.text },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.postData, "text", $event.target.value)
+                      }
+                    }
+                  }),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success mt-3 mr-2 px-5",
+                      on: { click: _vm.postComment }
+                    },
+                    [_vm._v("Post")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary mt-3 mx-2 px-5",
+                      on: { click: _vm.switchToIdle }
+                    },
+                    [_vm._v("Cancel")]
+                  )
                 ])
               : _vm._e()
           ])
@@ -37817,9 +37906,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "w-100" }, [
-      _c("p", [
-        _vm._v("x Earlier Comments. "),
-        _c("a", [_vm._v("Load more...")])
+      _c("p", { staticClass: "my-2" }, [
+        _vm._v("69 Earlier Comments. "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("Load more...")])
       ])
     ])
   },
@@ -37827,7 +37916,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-100 my-4" }, [
+    return _c("div", { staticClass: "w-100 mb-4" }, [
       _c("div", { staticClass: "w-100 row border-bottom border-top py-3" }, [
         _c("div", { staticClass: "col-2" }, [
           _c("img", {
@@ -37840,7 +37929,10 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-10" }, [
-          _c("p", [_c("b", [_vm._v("Karolis Kraujelis")]), _vm._v(" 5:12 PM")]),
+          _c("p", { staticClass: "text-muted" }, [
+            _c("b", { staticClass: "mr-4" }, [_vm._v("Karolis Kraujelis")]),
+            _vm._v(" 5:12 PM")
+          ]),
           _vm._v(" "),
           _c("p", [
             _vm._v("Hello World this is a very good comment which I like.")
@@ -37860,7 +37952,10 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-10" }, [
-          _c("p", [_c("b", [_vm._v("Karolis Kraujelis")]), _vm._v(" 5:12 PM")]),
+          _c("p", { staticClass: "text-muted" }, [
+            _c("b", { staticClass: "mr-4" }, [_vm._v("Karolis Kraujelis")]),
+            _vm._v(" 5:12 PM")
+          ]),
           _vm._v(" "),
           _c("p", [
             _vm._v("Hello World this is a very good comment which I like.")
@@ -37880,7 +37975,10 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-10" }, [
-          _c("p", [_c("b", [_vm._v("Karolis Kraujelis")]), _vm._v(" 5:12 PM")]),
+          _c("p", { staticClass: "text-muted" }, [
+            _c("b", { staticClass: "mr-4" }, [_vm._v("Karolis Kraujelis")]),
+            _vm._v(" 5:12 PM")
+          ]),
           _vm._v(" "),
           _c("p", [
             _vm._v("Hello World this is a very good comment which I like.")
