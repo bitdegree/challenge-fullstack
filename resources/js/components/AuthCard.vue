@@ -57,7 +57,9 @@
                     <input class="my-2" placeholder="Avataro URL" v-model="avatarData.url" type="text"/>
 
                     <div class="row w-100 justify-content-center d-inline-block">
-                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1">Set avatar</button>
+                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1"
+                                v-on:click="setAvatar">Set avatar
+                        </button>
                         <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1"
                                 v-on:click="logout">Log out
                         </button>
@@ -122,6 +124,7 @@
                             this.jwt = json.token;
                             this.user = json.user;
                             this.page = "DASHBOARD";
+                            this.avatarData.url = json.user.avatarURL;
 
                             this.$cookies.set('jwt', json.token);
 
@@ -169,6 +172,7 @@
                             this.jwt = json.token;
                             this.user = json.user;
                             this.page = "DASHBOARD";
+                            this.avatarData.url = json.user.avatarURL;
 
                             this.$cookies.set("jwt", json.token);
 
@@ -207,6 +211,7 @@
                             this.user = json.user;
                             this.jwt = json.token;
                             this.page = "DASHBOARD";
+                            this.avatarData.url = json.user.avatarURL;
 
                             this.$cookies.set("jwt", json.token);
 
@@ -218,6 +223,32 @@
                         console.log(e);
                     }
                 );
+            },
+            setAvatar: function () {
+                fetch(
+                    `${location.protocol}//${location.host}/api/avatar`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            token: this.jwt,
+                            avatar: this.avatarData.url
+                        })
+                    }
+                ).then(
+                    (response) => {
+                        return response.json();
+                    }
+                ).then((json) => {
+                    if(json.message !== undefined)
+                        this.avatarData.error = json.message;
+
+                    else {
+                        this.avatarData.error = null;
+                    }
+                });
             },
             logout: function () {
                 fetch(
@@ -235,6 +266,7 @@
                     this.jwt = null;
                     this.user = null;
                     this.page = "INFO";
+                    this.avatarData.url = null;
 
                     this.$cookies.remove('jwt');
 

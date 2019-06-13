@@ -45,6 +45,24 @@ class AuthController extends Controller
         return $this->respondWithToken($token, auth()->user());
     }
 
+    public function updateAvatar(Request $request) {
+        $url = $request->get("avatar", null);
+
+        if($url === null)
+            return response()->json(
+                [
+                    "message" => "Avatar was not provided!"
+                ],
+                400
+            );
+
+        $user = Auth::guard("api")->user();
+        $user->avatarURL = $url;
+        $user->save();
+
+        return response()->json([]);
+    }
+
     public function logout(Request $request)
     {
         Auth::guard('api')->logout();

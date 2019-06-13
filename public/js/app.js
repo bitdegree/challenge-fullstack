@@ -1771,6 +1771,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1815,6 +1817,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.jwt = json.token;
         _this.user = json.user;
         _this.page = "DASHBOARD";
+        _this.avatarData.url = json.user.avatarURL;
 
         _this.$cookies.set('jwt', json.token);
 
@@ -1852,6 +1855,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this2.jwt = json.token;
           _this2.user = json.user;
           _this2.page = "DASHBOARD";
+          _this2.avatarData.url = json.user.avatarURL;
 
           _this2.$cookies.set("jwt", json.token);
 
@@ -1878,6 +1882,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this3.user = json.user;
           _this3.jwt = json.token;
           _this3.page = "DASHBOARD";
+          _this3.avatarData.url = json.user.avatarURL;
 
           _this3.$cookies.set("jwt", json.token);
 
@@ -1887,8 +1892,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.log(e);
       });
     },
-    logout: function logout() {
+    setAvatar: function setAvatar() {
       var _this4 = this;
+
+      fetch("".concat(location.protocol, "//").concat(location.host, "/api/avatar"), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          token: this.jwt,
+          avatar: this.avatarData.url
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        if (json.message !== undefined) _this4.avatarData.error = json.message;else {
+          _this4.avatarData.error = null;
+        }
+      });
+    },
+    logout: function logout() {
+      var _this5 = this;
 
       fetch("".concat(location.protocol, "//").concat(location.host, "/api/register"), {
         method: "POST",
@@ -1899,13 +1924,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           token: this.jwt
         })
       }).then(function () {
-        _this4.jwt = null;
-        _this4.user = null;
-        _this4.page = "INFO";
+        _this5.jwt = null;
+        _this5.user = null;
+        _this5.page = "INFO";
+        _this5.avatarData.url = null;
 
-        _this4.$cookies.remove('jwt');
+        _this5.$cookies.remove('jwt');
 
-        _this4.$emit("on-auth-status-changed", null, null);
+        _this5.$emit("on-auth-status-changed", null, null);
       });
     }
   }
@@ -37851,9 +37877,10 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1"
+                          "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1",
+                        on: { click: _vm.setAvatar }
                       },
-                      [_vm._v("Set avatar")]
+                      [_vm._v("Set avatar\n                    ")]
                     ),
                     _vm._v(" "),
                     _c(
