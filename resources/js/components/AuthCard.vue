@@ -1,3 +1,5 @@
+import GoogleLogin from 'vue-google-login';
+
 <template>
     <div id="authCard" class="row justify-content-center my-5">
         <div class="col-md-8">
@@ -11,13 +13,15 @@
                     <h2 class="my-5">You're not logged in!</h2>
 
                     <div class="row w-100 justify-content-center d-inline-block">
-                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1"
+                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary mt-4 ml-1"
                                 v-on:click="registerSwitch">Register
                         </button>
-                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1"
+                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary mt-4 mr-1"
                                 v-on:click="loginSwitch">Login
                         </button>
                     </div>
+                    <google-login class="btn btn-success mt-1" :params="params" :onSuccess="onGoogleSuccess" :onFailure="onGoogleFailure">Continue with Google
+                    </google-login>
                 </div>
                 <div v-if="page === 'LOGIN'" class="card-body text-center">
                     <h2 class="my-5">Login!</h2>
@@ -75,6 +79,9 @@
     export default {
         data: () => {
             return {
+                params: {
+                    client_id: "1091528950892-ndm33msvssq94e0onpqjtqtvn9ql6ji8.apps.googleusercontent.com"
+                },
                 page: "INFO",
                 jwt: null,
                 user: null,
@@ -138,6 +145,49 @@
                 );
         },
         methods: {
+            onGoogleSuccess: function (googleUser) {
+                let token = googleUser.getAuthResponse().id_token;
+
+                fetch(`${location.protocol}//${location.host}/api/auth/google`, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(
+                        {
+                            googleToken: token
+                        }
+                    )
+                }).then(
+                    (response) => {
+                        return response.json();
+                    }
+                ).then(
+                    (json) => {
+                        if (json.message !== undefined)
+                            console.log(json.message);
+
+                        else {
+                            this.loginData.error = null;
+                            this.jwt = json.token;
+                            this.user = json.user;
+                            this.page = "DASHBOARD";
+                            this.avatarData.url = json.user.avatarURL;
+
+                            this.$cookies.set("jwt", json.token);
+
+                            this.$emit("on-auth-status-changed", json.token, json.user);
+                        }
+                    }
+                ).catch(
+                    (e) => {
+                        console.log(e);
+                    }
+                );
+            },
+            onGoogleFailure: function () {
+
+            },
             infoSwitch: function (event) {
                 event.preventDefault();
 
@@ -242,7 +292,7 @@
                         return response.json();
                     }
                 ).then((json) => {
-                    if(json.message !== undefined)
+                    if (json.message !== undefined)
                         this.avatarData.error = json.message;
 
                     else {

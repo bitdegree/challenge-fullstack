@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'failLogin']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'failLogin', 'googleAuth']]);
     }
 
     public function failLogin() {
@@ -43,6 +43,59 @@ class AuthController extends Controller
             );
 
         return $this->respondWithToken($token, auth()->user());
+    }
+
+    public function googleAuth(Request $request)
+    {
+        $token = $request->get("googleToken", null);
+
+        if($token === null)
+            return response()->json(
+                [
+                    "message" => "Google Auth Token was not provided!"
+                ],
+                400
+            );
+
+        $client = new \Google_Client(
+            [
+                'client_id' => '1091528950892-ndm33msvssq94e0onpqjtqtvn9ql6ji8.apps.googleusercontent.com'
+            ]
+        );
+        $payload = $client->verifyIdToken(
+            $token
+        );
+
+        if(!$payload)
+            return response()->json(
+                [
+                    "message" => "Google Auth Token is invalid!"
+                ],
+                401
+            );
+        //^^^ could be done through middleware, but I only auth with google in one place soooo its fine.
+
+        $user = User::firstOrCreate(
+            [
+                'email' => $payload['email']
+            ],
+            [
+                'firstName' => $payload['given_name'],
+                'lastName' => $payload['family_name'],
+                'avatarURL' => $payload['picture'],
+                'password' => 'someRandomPasswordThatNooneWillFigureOut...........'
+                //^^^^^^^^ Dodgy but will do since this is really small scale demo.
+            ]
+        );
+        $user->avatarURL = $payload["picture"];
+        $user->save();
+
+        $token = Auth::guard('api')->login($user);
+
+        return $this->respondWithToken(
+            $token,
+            $user
+        );
     }
 
     public function updateAvatar(Request $request) {

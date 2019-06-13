@@ -15,6 +15,7 @@ Route::post('/register', 'AuthController@register')->name("register");
 Route::post('/login', 'AuthController@login')->name("login");
 Route::post('/logout', 'AuthController@logout')->name("logout");
 Route::post('/status', 'AuthController@status')->name("status");
+Route::post('/auth/google', 'AuthController@googleAuth')->name("googleAuth");
 Route::post('/avatar', 'AuthController@updateAvatar')->name("updateAvatar");
 Route::get('/login/failed', 'AuthController@failLogin')->name("failLogin");
 Route::get('/comments', 'CommentController@index')->name("comments");

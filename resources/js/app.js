@@ -19,6 +19,9 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+Vue.use(require('vue-google-login'), {
+    client_id: '1091528950892-ndm33msvssq94e0onpqjtqtvn9ql6ji8.apps.googleusercontent.com'
+});
 Vue.use(
     require('vue-cookies')
 );
@@ -28,6 +31,7 @@ Vue.component(
 );
 Vue.component('comment-card', require('./components/CommentCard').default);
 Vue.component('page-wrapper', require('./components/PageWrapper').default);
+Vue.component('google-login', require('vue-google-login').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -36,5 +40,5 @@ Vue.component('page-wrapper', require('./components/PageWrapper').default);
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
 });

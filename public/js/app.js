@@ -1773,9 +1773,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      params: {
+        client_id: "1091528950892-ndm33msvssq94e0onpqjtqtvn9ql6ji8.apps.googleusercontent.com"
+      },
       page: "INFO",
       jwt: null,
       user: null,
@@ -1828,29 +1835,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     });
   },
   methods: {
-    infoSwitch: function infoSwitch(event) {
-      event.preventDefault();
-      this.page = "INFO";
-    },
-    registerSwitch: function registerSwitch() {
-      this.page = "REGISTER";
-    },
-    loginSwitch: function loginSwitch() {
-      this.page = "LOGIN";
-    },
-    loginAttempt: function loginAttempt() {
+    onGoogleSuccess: function onGoogleSuccess(googleUser) {
       var _this2 = this;
 
-      fetch("".concat(location.protocol, "//").concat(location.host, "/api/login"), {
+      var token = googleUser.getAuthResponse().id_token;
+      fetch("".concat(location.protocol, "//").concat(location.host, "/api/auth/google"), {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(_objectSpread({}, this.loginData))
+        body: JSON.stringify({
+          googleToken: token
+        })
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        if (json.message !== undefined) _this2.loginData.error = json.message;else {
+        if (json.message !== undefined) console.log(json.message);else {
           _this2.loginData.error = null;
           _this2.jwt = json.token;
           _this2.user = json.user;
@@ -1865,22 +1865,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.log(e);
       });
     },
-    registerAttempt: function registerAttempt() {
+    onGoogleFailure: function onGoogleFailure() {},
+    infoSwitch: function infoSwitch(event) {
+      event.preventDefault();
+      this.page = "INFO";
+    },
+    registerSwitch: function registerSwitch() {
+      this.page = "REGISTER";
+    },
+    loginSwitch: function loginSwitch() {
+      this.page = "LOGIN";
+    },
+    loginAttempt: function loginAttempt() {
       var _this3 = this;
 
-      if (this.registerData.confirmPassword !== this.registerData.password) this.registerData.error = "Passwords do not match!";else fetch("".concat(location.protocol, "//").concat(location.host, "/api/register"), {
+      fetch("".concat(location.protocol, "//").concat(location.host, "/api/login"), {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(_objectSpread({}, this.registerData))
+        body: JSON.stringify(_objectSpread({}, this.loginData))
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        if (json.message !== undefined) _this3.registerData.error = json.message;else {
-          _this3.registerData.error = null;
-          _this3.user = json.user;
+        if (json.message !== undefined) _this3.loginData.error = json.message;else {
+          _this3.loginData.error = null;
           _this3.jwt = json.token;
+          _this3.user = json.user;
           _this3.page = "DASHBOARD";
           _this3.avatarData.url = json.user.avatarURL;
 
@@ -1892,8 +1903,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.log(e);
       });
     },
-    setAvatar: function setAvatar() {
+    registerAttempt: function registerAttempt() {
       var _this4 = this;
+
+      if (this.registerData.confirmPassword !== this.registerData.password) this.registerData.error = "Passwords do not match!";else fetch("".concat(location.protocol, "//").concat(location.host, "/api/register"), {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(_objectSpread({}, this.registerData))
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        if (json.message !== undefined) _this4.registerData.error = json.message;else {
+          _this4.registerData.error = null;
+          _this4.user = json.user;
+          _this4.jwt = json.token;
+          _this4.page = "DASHBOARD";
+          _this4.avatarData.url = json.user.avatarURL;
+
+          _this4.$cookies.set("jwt", json.token);
+
+          _this4.$emit("on-auth-status-changed", json.token, json.user);
+        }
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    },
+    setAvatar: function setAvatar() {
+      var _this5 = this;
 
       fetch("".concat(location.protocol, "//").concat(location.host, "/api/avatar"), {
         method: "POST",
@@ -1907,13 +1945,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        if (json.message !== undefined) _this4.avatarData.error = json.message;else {
-          _this4.avatarData.error = null;
+        if (json.message !== undefined) _this5.avatarData.error = json.message;else {
+          _this5.avatarData.error = null;
         }
       });
     },
     logout: function logout() {
-      var _this5 = this;
+      var _this6 = this;
 
       fetch("".concat(location.protocol, "//").concat(location.host, "/api/register"), {
         method: "POST",
@@ -1924,14 +1962,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           token: this.jwt
         })
       }).then(function () {
-        _this5.jwt = null;
-        _this5.user = null;
-        _this5.page = "INFO";
-        _this5.avatarData.url = null;
+        _this6.jwt = null;
+        _this6.user = null;
+        _this6.page = "INFO";
+        _this6.avatarData.url = null;
 
-        _this5.$cookies.remove('jwt');
+        _this6.$cookies.remove('jwt');
 
-        _this5.$emit("on-auth-status-changed", null, null);
+        _this6.$emit("on-auth-status-changed", null, null);
       });
     }
   }
@@ -37542,6 +37580,19 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-google-login/dist/vue-google-login.min.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/vue-google-login/dist/vue-google-login.min.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){ true?t(exports):undefined}(this,function(e){"use strict";function t(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var n,o,i=function(e){return new Promise(function(o,i){window.onGapiLoad=function(){window.gapi.load("auth2",function(){try{n=window.gapi.auth2.init(function(e){for(var n=1;n<arguments.length;n++){var o=null!=arguments[n]?arguments[n]:{},i=Object.keys(o);"function"==typeof Object.getOwnPropertySymbols&&(i=i.concat(Object.getOwnPropertySymbols(o).filter(function(e){return Object.getOwnPropertyDescriptor(o,e).enumerable}))),i.forEach(function(n){t(e,n,o[n])})}return e}({},e))}catch(e){i({err:"client_id missing or is incorrect, or if you added extra params maybe they are written incorrectly, did you add it to the component or plugin?"})}o(n)})}})},r=function(e){return n?Promise.resolve(n):(o||(o=i(e)),o)},u=function(e,t){if(e)return e[t]();return Promise.reject({err:"Script not loaded correctly, did you added the plugin or the client_id to the component?"})},c={load:function(e){return Promise.all([r(e),new Promise(function(e,t){if(!document.getElementById("auth2_script_id")){var n=document.createElement("script");n.setAttribute("src","https://apis.google.com/js/platform.js?onload=onGapiLoad"),n.setAttribute("async",!0),n.setAttribute("defer","defer"),n.setAttribute("id","auth2_script_id"),document.head.appendChild(n)}e()})]).then(function(e){return e[0]})},signIn:function(){return u(n,"signIn")},signOut:function(){return u(n,"signOut")}};var s=function(e,t,n,o,i,r,u,c,s,a){"boolean"!=typeof u&&(s=c,c=u,u=!1);var d,l="function"==typeof n?n.options:n;if(e&&e.render&&(l.render=e.render,l.staticRenderFns=e.staticRenderFns,l._compiled=!0,i&&(l.functional=!0)),o&&(l._scopeId=o),r?(d=function(e){(e=e||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(e=__VUE_SSR_CONTEXT__),t&&t.call(this,s(e)),e&&e._registeredComponents&&e._registeredComponents.add(r)},l._ssrRegister=d):t&&(d=u?function(){t.call(this,a(this.$root.$options.shadowRoot))}:function(e){t.call(this,c(e))}),d)if(l.functional){var f=l.render;l.render=function(e,t){return d.call(t),f(e,t)}}else{var p=l.beforeCreate;l.beforeCreate=p?[].concat(p,d):[d]}return n}({render:function(){var e=this.$createElement;return(this._self._c||e)("button",{on:{click:this.handleClick}},[this._t("default")],2)},staticRenderFns:[]},void 0,{name:"GoogleLogin",props:{params:{type:Object,required:!0},onSuccess:{type:Function,default:function(){}},onFailure:{type:Function,default:function(){}},logoutButton:{type:Boolean,default:!1}},methods:{handleClick:function(){var e=this,t=this.logoutButton?"signOut":"signIn";c[t]().then(function(t){return e.onSuccess(t)}).catch(function(t){return e.onFailure(t)})}},mounted:function(){c.load(this.params).catch(function(e){console.log(e)})}},void 0,!1,void 0,void 0,void 0),a={install:function(e,t){e.GoogleAuth=c.load(t)}};e.GoogleLogin=s,e.LoaderPlugin=a,e.default=s,Object.defineProperty(e,"__esModule",{value:!0})});
+//# sourceMappingURL=vue-google-login.min.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AuthCard.vue?vue&type=template&id=0175a243&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AuthCard.vue?vue&type=template&id=0175a243& ***!
@@ -37579,40 +37630,58 @@ var render = function() {
               ]),
           _vm._v(" "),
           _vm.page === "INFO"
-            ? _c("div", { staticClass: "card-body text-center" }, [
-                _c("h2", { staticClass: "my-5" }, [
-                  _vm._v("You're not logged in!")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "row w-100 justify-content-center d-inline-block"
-                  },
-                  [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1",
-                        on: { click: _vm.registerSwitch }
-                      },
-                      [_vm._v("Register\n                    ")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1",
-                        on: { click: _vm.loginSwitch }
-                      },
-                      [_vm._v("Login\n                    ")]
-                    )
-                  ]
-                )
-              ])
+            ? _c(
+                "div",
+                { staticClass: "card-body text-center" },
+                [
+                  _c("h2", { staticClass: "my-5" }, [
+                    _vm._v("You're not logged in!")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "row w-100 justify-content-center d-inline-block"
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary mt-4 ml-1",
+                          on: { click: _vm.registerSwitch }
+                        },
+                        [_vm._v("Register\n                    ")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary mt-4 mr-1",
+                          on: { click: _vm.loginSwitch }
+                        },
+                        [_vm._v("Login\n                    ")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "google-login",
+                    {
+                      staticClass: "btn btn-success mt-1",
+                      attrs: {
+                        params: _vm.params,
+                        onSuccess: _vm.onGoogleSuccess,
+                        onFailure: _vm.onGoogleFailure
+                      }
+                    },
+                    [_vm._v("Continue with Google\n                ")]
+                  )
+                ],
+                1
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm.page === "LOGIN"
@@ -50387,10 +50456,14 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+Vue.use(__webpack_require__(/*! vue-google-login */ "./node_modules/vue-google-login/dist/vue-google-login.min.js"), {
+  client_id: '1091528950892-ndm33msvssq94e0onpqjtqtvn9ql6ji8.apps.googleusercontent.com'
+});
 Vue.use(__webpack_require__(/*! vue-cookies */ "./node_modules/vue-cookies/vue-cookies.js"));
 Vue.component('auth-card', __webpack_require__(/*! ./components/AuthCard */ "./resources/js/components/AuthCard.vue")["default"]);
 Vue.component('comment-card', __webpack_require__(/*! ./components/CommentCard */ "./resources/js/components/CommentCard.vue")["default"]);
 Vue.component('page-wrapper', __webpack_require__(/*! ./components/PageWrapper */ "./resources/js/components/PageWrapper.vue")["default"]);
+Vue.component('google-login', __webpack_require__(/*! vue-google-login */ "./node_modules/vue-google-login/dist/vue-google-login.min.js")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -50534,15 +50607,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************************!*\
   !*** ./resources/js/components/CommentCard.vue ***!
   \*************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CommentCard_vue_vue_type_template_id_5634f174___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CommentCard.vue?vue&type=template&id=5634f174& */ "./resources/js/components/CommentCard.vue?vue&type=template&id=5634f174&");
 /* harmony import */ var _CommentCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CommentCard.vue?vue&type=script&lang=js& */ "./resources/js/components/CommentCard.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _CommentCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _CommentCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50572,7 +50644,7 @@ component.options.__file = "resources/js/components/CommentCard.vue"
 /*!**************************************************************************!*\
   !*** ./resources/js/components/CommentCard.vue?vue&type=script&lang=js& ***!
   \**************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
