@@ -1819,7 +1819,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     });
   },
   methods: {
-    infoSwitch: function infoSwitch() {
+    infoSwitch: function infoSwitch(event) {
+      event.preventDefault();
       this.page = "INFO";
     },
     registerSwitch: function registerSwitch() {
@@ -1958,13 +1959,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1974,19 +1968,39 @@ __webpack_require__.r(__webpack_exports__);
         parent: null,
         text: null
       },
-      comments: []
+      comments: [],
+      parentComment: null
     };
   },
   props: ['jwt', 'user'],
+  mounted: function mounted() {
+    this.fetchComments();
+  },
   methods: {
     switchToPosting: function switchToPosting() {
+      var parent = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       this.status = "POSTING";
+      this.postData.parent = parent;
+      console.log(this.postData.parent);
     },
+    viewReplies: function viewReplies(parent) {},
     switchToIdle: function switchToIdle() {
       this.status = "IDLE";
     },
-    postComment: function postComment() {
+    fetchComments: function fetchComments() {
       var _this = this;
+
+      this.comments = [];
+      fetch("".concat(location.protocol, "//").concat(location.host, "/api/comments"), {
+        method: "GET"
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this.comments = json;
+      });
+    },
+    postComment: function postComment() {
+      var _this2 = this;
 
       fetch("".concat(location.protocol, "//").concat(location.host, "/api/comments"), {
         method: 'POST',
@@ -2001,13 +2015,13 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        if (json.message !== undefined) _this.postData.error = json.message;else {
-          _this.status = "IDLE";
-          _this.postData.error = null;
-          _this.postData.parent = null;
-          _this.postData.text = null;
+        if (json.message !== undefined) _this2.postData.error = json.message;else {
+          _this2.status = "IDLE";
+          _this2.postData.error = null;
+          _this2.postData.parent = null;
+          _this2.postData.text = null;
 
-          _this.comments.push(json);
+          _this2.fetchComments();
         }
       });
     }
@@ -37493,25 +37507,34 @@ var render = function() {
                   _vm._v("You're not logged in!")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "w-50 d-inline-block" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary mx-1",
-                      on: { click: _vm.registerSwitch }
-                    },
-                    [_vm._v("Register")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary mx-1",
-                      on: { click: _vm.loginSwitch }
-                    },
-                    [_vm._v("Login")]
-                  )
-                ])
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "row w-100 justify-content-center d-inline-block"
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1",
+                        on: { click: _vm.registerSwitch }
+                      },
+                      [_vm._v("Register")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1",
+                        on: { click: _vm.loginSwitch }
+                      },
+                      [_vm._v("Login")]
+                    )
+                  ]
+                )
               ])
             : _vm._e(),
           _vm._v(" "),
@@ -37766,20 +37789,33 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("div", { staticClass: "w-50 d-inline-block" }, [
-                  _c("button", { staticClass: "btn btn-secondary my-4 mx-1" }, [
-                    _vm._v("Change Avatar!")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary my-4 mx-1",
-                      on: { click: _vm.logout }
-                    },
-                    [_vm._v("Log out!")]
-                  )
-                ])
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "row w-100 justify-content-center d-inline-block"
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1"
+                      },
+                      [_vm._v("Set avatar")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1",
+                        on: { click: _vm.logout }
+                      },
+                      [_vm._v("Log out")]
+                    )
+                  ]
+                )
               ])
             : _vm._e()
         ])
@@ -37821,11 +37857,112 @@ var render = function() {
           _c("div", { staticClass: "card-header" }, [_vm._v("Comment Box!")]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _vm._m(0),
+            _c("div", { staticClass: "w-100" }, [
+              _c("p", { staticClass: "my-2" }, [
+                _vm._v(_vm._s(_vm.comments.length) + " comments.")
+              ])
+            ]),
             _vm._v(" "),
-            _vm._m(1),
+            _vm.comments.length === 0
+              ? _c(
+                  "div",
+                  { staticClass: "w-100 text-center border-bottom border-top" },
+                  [
+                    _c("h5", { staticClass: "text-muted my-5" }, [
+                      _vm._v("No comments were found!")
+                    ])
+                  ]
+                )
+              : _vm._e(),
             _vm._v(" "),
-            this.user === null
+            _c(
+              "div",
+              { staticClass: "w-100 mb-4 custom-list" },
+              _vm._l(_vm.comments, function(comment) {
+                return _c(
+                  "div",
+                  { staticClass: "w-100 row border-bottom border-top py-3" },
+                  [
+                    _c("div", { staticClass: "col-2" }, [
+                      _c("img", {
+                        staticClass: "w-100 h-auto rounded-circle",
+                        attrs: { src: comment.avatarURL }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-10" }, [
+                      _c("p", { staticClass: "text-muted" }, [
+                        _c("b", { staticClass: "mr-4" }, [
+                          _vm._v(
+                            _vm._s(comment.firstName) +
+                              " " +
+                              _vm._s(comment.lastName)
+                          )
+                        ]),
+                        _vm._v(" " + _vm._s(comment.created_at))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(comment.content))]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      comment.num_replies === 0
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              attrs: { disabled: "" }
+                            },
+                            [_vm._v("View 0 replies")]
+                          )
+                        : _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              on: {
+                                click: function($event) {
+                                  return _vm.viewReplies(_vm.commment.id)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "View " +
+                                  _vm._s(comment.num_replies) +
+                                  " replies"
+                              )
+                            ]
+                          ),
+                      _vm._v(" "),
+                      _vm.user === null
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              attrs: { disabled: "" }
+                            },
+                            [_vm._v("Reply")]
+                          )
+                        : _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              on: {
+                                click: function($event) {
+                                  return _vm.switchToPosting(comment)
+                                }
+                              }
+                            },
+                            [_vm._v("Reply")]
+                          )
+                    ])
+                  ]
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _vm.user === null
               ? _c("div", { staticClass: "w-100 text-center" }, [
                   _c("p", [
                     _vm._v("Tik prisijungę vartotojai gali rašyti komentarą!")
@@ -37837,7 +37974,11 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-success w-50",
-                      on: { click: _vm.switchToPosting }
+                      on: {
+                        click: function($event) {
+                          return _vm.switchToPosting()
+                        }
+                      }
                     },
                     [_vm._v("Post a comment")]
                   )
@@ -37851,6 +37992,20 @@ var render = function() {
                         ])
                       : _vm._e()
                   ]),
+                  _vm._v(" "),
+                  _vm.postData.parent !== null
+                    ? _c("div", { staticClass: "w-100" }, [
+                        _c("p", [
+                          _vm._v(
+                            "Replying to " +
+                              _vm._s(_vm.postData.parent.firstName) +
+                              " " +
+                              _vm._s(_vm.postData.parent.lastName) +
+                              " post..."
+                          )
+                        ])
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -37900,94 +38055,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-100" }, [
-      _c("p", { staticClass: "my-2" }, [
-        _vm._v("69 Earlier Comments. "),
-        _c("a", { attrs: { href: "#" } }, [_vm._v("Load more...")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-100 mb-4" }, [
-      _c("div", { staticClass: "w-100 row border-bottom border-top py-3" }, [
-        _c("div", { staticClass: "col-2" }, [
-          _c("img", {
-            staticClass: "w-100 h-auto",
-            attrs: {
-              src:
-                "http://i.dailymail.co.uk/i/pix/2015/09/01/18/2BE1E88B00000578-3218613-image-m-5_1441127035222.jpg"
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-10" }, [
-          _c("p", { staticClass: "text-muted" }, [
-            _c("b", { staticClass: "mr-4" }, [_vm._v("Karolis Kraujelis")]),
-            _vm._v(" 5:12 PM")
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v("Hello World this is a very good comment which I like.")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-100 row border-bottom py-3" }, [
-        _c("div", { staticClass: "col-2" }, [
-          _c("img", {
-            staticClass: "w-100 h-auto",
-            attrs: {
-              src:
-                "http://i.dailymail.co.uk/i/pix/2015/09/01/18/2BE1E88B00000578-3218613-image-m-5_1441127035222.jpg"
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-10" }, [
-          _c("p", { staticClass: "text-muted" }, [
-            _c("b", { staticClass: "mr-4" }, [_vm._v("Karolis Kraujelis")]),
-            _vm._v(" 5:12 PM")
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v("Hello World this is a very good comment which I like.")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-100 row border-bottom py-3" }, [
-        _c("div", { staticClass: "col-2" }, [
-          _c("img", {
-            staticClass: "w-100 h-auto",
-            attrs: {
-              src:
-                "http://i.dailymail.co.uk/i/pix/2015/09/01/18/2BE1E88B00000578-3218613-image-m-5_1441127035222.jpg"
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-10" }, [
-          _c("p", { staticClass: "text-muted" }, [
-            _c("b", { staticClass: "mr-4" }, [_vm._v("Karolis Kraujelis")]),
-            _vm._v(" 5:12 PM")
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v("Hello World this is a very good comment which I like.")
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -50337,14 +50405,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************************!*\
   !*** ./resources/js/components/CommentCard.vue ***!
   \*************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CommentCard_vue_vue_type_template_id_5634f174___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CommentCard.vue?vue&type=template&id=5634f174& */ "./resources/js/components/CommentCard.vue?vue&type=template&id=5634f174&");
 /* harmony import */ var _CommentCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CommentCard.vue?vue&type=script&lang=js& */ "./resources/js/components/CommentCard.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _CommentCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _CommentCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50374,7 +50443,7 @@ component.options.__file = "resources/js/components/CommentCard.vue"
 /*!**************************************************************************!*\
   !*** ./resources/js/components/CommentCard.vue?vue&type=script&lang=js& ***!
   \**************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

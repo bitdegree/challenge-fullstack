@@ -10693,3 +10693,8 @@ a.text-dark:focus {
   padding-bottom: 0;
 }
 
+#commentCard .custom-list {
+  max-height: 75vh;
+  overflow-y: auto;
+}
+

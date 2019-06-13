@@ -6,51 +6,44 @@
 
                 <div class="card-body">
                     <div class="w-100">
-                        <p class="my-2">69 Earlier Comments. <a href="#">Load more...</a></p>
+                        <p class="my-2">{{comments.length}} comments.</p>
                     </div>
-                    <div class="w-100 mb-4">
-                        <div class="w-100 row border-bottom border-top py-3">
+                    <div v-if="comments.length === 0" class="w-100 text-center border-bottom border-top">
+                        <h5 class="text-muted my-5">No comments were found!</h5>
+                    </div>
+                    <div class="w-100 mb-4 custom-list">
+                        <div v-for="comment in comments" class="w-100 row border-bottom border-top py-3">
                             <div class="col-2">
-                                <img class="w-100 h-auto"
-                                     src="http://i.dailymail.co.uk/i/pix/2015/09/01/18/2BE1E88B00000578-3218613-image-m-5_1441127035222.jpg"/>
+                                <img class="w-100 h-auto rounded-circle"
+                                     v-bind:src="comment.avatarURL"/>
                             </div>
                             <div class="col-10">
-                                <p class="text-muted"><b class="mr-4">Karolis Kraujelis</b> 5:12 PM</p>
-                                <p>Hello World this is a very good comment which I like.</p>
-                            </div>
-                        </div>
-                        <div class="w-100 row border-bottom py-3">
-                            <div class="col-2">
-                                <img class="w-100 h-auto"
-                                     src="http://i.dailymail.co.uk/i/pix/2015/09/01/18/2BE1E88B00000578-3218613-image-m-5_1441127035222.jpg"/>
-                            </div>
-                            <div class="col-10">
-                                <p class="text-muted"><b class="mr-4">Karolis Kraujelis</b> 5:12 PM</p>
-                                <p>Hello World this is a very good comment which I like.</p>
-                            </div>
-                        </div>
-                        <div class="w-100 row border-bottom py-3">
-                            <div class="col-2">
-                                <img class="w-100 h-auto"
-                                     src="http://i.dailymail.co.uk/i/pix/2015/09/01/18/2BE1E88B00000578-3218613-image-m-5_1441127035222.jpg"/>
-                            </div>
-                            <div class="col-10">
-                                <p class="text-muted"><b class="mr-4">Karolis Kraujelis</b> 5:12 PM</p>
-                                <p>Hello World this is a very good comment which I like.</p>
+                                <p class="text-muted"><b class="mr-4">{{comment.firstName}} {{comment.lastName}}</b> {{comment.created_at}}</p>
+                                <p>{{comment.content}}</p>
+                                <hr>
+
+                                <button v-if="comment.num_replies === 0" class="btn btn-success" disabled>View 0 replies</button>
+                                <button v-else class="btn btn-success" v-on:click="viewReplies(commment.id)">View {{comment.num_replies}} replies</button>
+
+                                <button v-if="user === null" class="btn btn-success" disabled>Reply</button>
+                                <button v-else class="btn btn-success" v-on:click="switchToPosting(comment)">Reply</button>
                             </div>
                         </div>
                     </div>
-                    <div v-if="this.user === null" class="w-100 text-center">
+                    <div v-if="user === null" class="w-100 text-center">
                         <p>Tik prisijungę vartotojai gali rašyti komentarą!</p>
                     </div>
                     <div v-else-if="status === 'IDLE'" class="w-100 text-center">
-                        <button class="btn btn-success w-50" v-on:click="switchToPosting">Post a comment</button>
+                        <button class="btn btn-success w-50" v-on:click="switchToPosting()">Post a comment</button>
                     </div>
                     <div v-else-if="status === 'POSTING'" class="w-100">
                         <div class="text-center">
                             <div v-if="postData.error !== null" class="alert alert-danger">
                                 <p>{{postData.error}}</p>
                             </div>
+                        </div>
+                        <div v-if="postData.parent !== null" class="w-100">
+                            <p>Replying to {{postData.parent.firstName}} {{postData.parent.lastName}} post...</p>
                         </div>
                         <input placeholder="Your comment..." v-model="postData.text" class="w-100 d-inline-block"/><br/>
                         <button class="btn btn-success mt-3 mr-2 px-5" v-on:click="postComment">Post</button>
@@ -73,19 +66,47 @@
                     parent: null,
                     text: null,
                 },
-                comments: []
+                comments: [],
+                parentComment: null
             }
         },
         props: [
             'jwt',
             'user'
         ],
+        mounted() {
+            this.fetchComments();
+        },
         methods: {
-            switchToPosting: function () {
+            switchToPosting: function (parent = null) {
                 this.status = "POSTING";
+                this.postData.parent = parent;
+
+                console.log(this.postData.parent);
+            },
+            viewReplies: function(parent) {
+
             },
             switchToIdle: function () {
                 this.status = "IDLE";
+            },
+            fetchComments: function () {
+                this.comments = [];
+
+                fetch(
+                    `${location.protocol}//${location.host}/api/comments`,
+                    {
+                        method: "GET"
+                    }
+                ).then(
+                    (response) => {
+                        return response.json();
+                    }
+                ).then(
+                    (json) => {
+                        this.comments = json;
+                    }
+                )
             },
             postComment: function () {
                 fetch(`${location.protocol}//${location.host}/api/comments`, {
@@ -116,7 +137,7 @@
                             this.postData.parent = null;
                             this.postData.text = null;
 
-                            this.comments.push(json);
+                            this.fetchComments();
                         }
                     }
                 )

@@ -10,9 +10,9 @@
                 <div v-if="page === 'INFO'" class="card-body text-center">
                     <h2 class="my-5">You're not logged in!</h2>
 
-                    <div class="w-50 d-inline-block">
-                        <button class="btn btn-secondary mx-1" v-on:click="registerSwitch">Register</button>
-                        <button class="btn btn-secondary mx-1" v-on:click="loginSwitch">Login</button>
+                    <div class="row w-100 justify-content-center d-inline-block">
+                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1" v-on:click="registerSwitch">Register</button>
+                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1" v-on:click="loginSwitch">Login</button>
                     </div>
                 </div>
                 <div v-if="page === 'LOGIN'" class="card-body text-center">
@@ -52,9 +52,9 @@
 
                     <input class="my-2" placeholder="Avataro URL" v-model="avatarData.url" type="text"/>
 
-                    <div class="w-50 d-inline-block">
-                        <button class="btn btn-secondary my-4 mx-1">Change Avatar!</button>
-                        <button class="btn btn-secondary my-4 mx-1" v-on:click="logout">Log out!</button>
+                    <div class="row w-100 justify-content-center d-inline-block">
+                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 ml-1">Set avatar</button>
+                        <button class="col-3 col-xs-6 col-sm-6 col-md-3 btn btn-secondary my-4 mr-1" v-on:click="logout">Log out</button>
                     </div>
                 </div>
             </div>
@@ -129,7 +129,9 @@
                 );
         },
         methods: {
-            infoSwitch: function () {
+            infoSwitch: function (event) {
+                event.preventDefault();
+
                 this.page = "INFO";
             },
             registerSwitch: function () {

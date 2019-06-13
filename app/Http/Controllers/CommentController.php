@@ -38,6 +38,22 @@ class CommentController extends Controller
                 400
             );
 
+        if($parent !== null) {
+            $parentComment = Comment::find(
+                $parent
+            );
+
+            if($parentComment === null)
+                return response()->json(
+                    [
+                        "message" => "Parent comment id is invalid!"
+                    ]
+                );
+
+            $parentComment->num_replies++;
+            $parentComment->save();
+        }
+
         $comment = Comment::create(
             [
                 'author_id' => $user->id,
