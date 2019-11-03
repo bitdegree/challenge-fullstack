@@ -10,7 +10,7 @@ class SocialController extends Controller
 {
     public function redirect($provider)
     {
-        return Socialite::driver($provider)->redirect();
+        return Socialite::with($provider)->with(['picture' => ['type' => 'large']])->redirect();
     }
 
     public function callback($provider)
@@ -19,22 +19,22 @@ class SocialController extends Controller
 
         $user = $this->createUser($getInfo, $provider);
 
-        auth()->login($user);
+        auth()->login($user, true);
 
         return redirect()->to('/');
     }
 
     private function createUser($getInfo, $provider)
     {
-
         $user = User::where('provider_id', $getInfo->id)->first();
 
         if (!$user) {
             $user = User::create([
                 'name'     => $getInfo->name,
                 'email'    => $getInfo->email,
+                'avatar'    => $getInfo->avatar,
                 'provider' => $provider,
-                'provider_id' => $getInfo->id
+                'provider_id' => $getInfo->id,
             ]);
         }
         return $user;

@@ -49971,6 +49971,10 @@ Vue.component('comment-box', __webpack_require__(/*! ./components/comment_box/Co
 var app = new Vue({
   el: '#app'
 });
+$('.custom-file-input').on('change', function () {
+  var fileName = $(this).val().split('\\').pop();
+  $(this).next('.custom-file-label').addClass("selected").html(fileName);
+});
 
 /***/ }),
 

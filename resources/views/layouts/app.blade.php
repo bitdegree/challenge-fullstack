@@ -22,6 +22,31 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    <script>
+        function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        }
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '723103474840458',
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v5.0'
+            });
+
+            FB.AppEvents.logPageView();
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -53,6 +78,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <img class=" mr-2 rounded-circle d-inline" height="32px" width="32px" src="{{auth()->user()->avatar}}" alt="">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
@@ -61,6 +87,9 @@
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('profile') }}">
+                                        Profile
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -78,5 +107,10 @@
             @yield('content')
         </main>
     </div>
+{{--    <script type="application/javascript">--}}
+{{--        $('.avatar').change(function() {--}}
+{{--            alert("body")--}}
+{{--        });--}}
+{{--    </script>--}}
 </body>
 </html>

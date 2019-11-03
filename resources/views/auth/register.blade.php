@@ -63,13 +63,12 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-dark">
                                     {{ __('Register') }}
                                 </button>
+                                <a href="{{ url('/auth/redirect/google') }}" class="btn btn-danger"><i class="fab fa-google"></i> Google</a>
+                                <a href="{{ url('/auth/redirect/facebook') }}" class="btn btn-primary"><i class="fab fa-facebook"></i> Facebook</a>
                             </div>
-                        </div>
-                        <div class="col-md-8 offset-md-4">
-                            <a href="{{ url('/auth/redirect/google') }}" class="btn btn-primary"><i class="fab fa-google"></i> Google</a>
                         </div>
                     </form>
                 </div>
