@@ -10,7 +10,7 @@ class SocialController extends Controller
 {
     public function redirect($provider)
     {
-        return Socialite::with($provider)->with(['picture' => ['type' => 'large']])->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
     public function callback($provider)

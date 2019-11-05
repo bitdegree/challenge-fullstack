@@ -1,7 +1,10 @@
-
 require('./bootstrap');
 
+import VueResource from "vue-resource"
+
 window.Vue = require('vue');
+
+Vue.use(VueResource);
 
 Vue.component('comment-box', require('./components/comment_box/CommentBox.vue').default);
 

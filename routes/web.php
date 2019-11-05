@@ -15,6 +15,9 @@
 //    return view('welcome');
 //});
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -24,3 +27,5 @@ Route::post('/profile/change', 'UsersController@update')->name('profile.change')
 
 Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
 Route::get('/callback/{provider}', 'SocialController@callback');
+
+Route::resource('comments', 'CommentsController');
