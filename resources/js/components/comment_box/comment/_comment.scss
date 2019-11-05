@@ -1,0 +1,13 @@
+.comment{
+padding: 5px;
+    li{
+        list-style: none;
+        font-size: 20px;
+    }
+    font-size: 15px;
+    .toggleBtn{
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}

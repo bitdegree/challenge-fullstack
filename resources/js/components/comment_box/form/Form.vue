@@ -1,38 +1,49 @@
 <template>
-    <form @submit="formSubmit">
-        <input type="text" class="form-control" placeholder="Įveskite vardą" v-model="name">
-        <button class="btn btn-success">Submit</button>
+    <form @submit.prevent="submit()">
+        <input type="text" class="form-control" placeholder="Įveskite komentarą" v-model="textField">
+        <button class="btn btn-success" type="submit">Paskelbti</button>
     </form>
 </template>
 
 <script>
     export default {
         name: "Form",
+        props: {
+            reply: {
+                default: false,
+                type: Boolean
+            },
+            callReload: {
+                type: Function
+            },
+            id: {
+                default: 1,
+                type: Number
+            }
+        },
         data() {
             return {
                 comments: [],
-                name: '',
+                textField: "",
             }
         },
-        mounted() {
-
-        },
         methods: {
-            formSubmit(e){
-                e.preventDefault();
+            submit(){
                 axios
                     .post('/comments', {
-                        comment: this.comment
+                        textField: this.textField,
+                        reply: this.reply,
+                        id: this.id
                     })
                     .then(response => {
-                        this.comments = response.data.comments;
+                        this.name = '';
+                         this.callReload();
                     })
                     .catch(function (error) {
                         console.log(error)
                     });
-            },
+            }
         }
-
     }
 </script>
 

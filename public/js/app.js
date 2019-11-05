@@ -1850,11 +1850,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1894,15 +1889,53 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _form_Form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../form/Form */ "./resources/js/components/comment_box/form/Form.vue");
 //
 //
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Comment",
-  props: ['comment']
+  components: {
+    Form: _form_Form__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {
+    comment: '',
+    reply: {
+      "default": false,
+      type: Boolean
+    },
+    callReload: {
+      type: Function
+    }
+  },
+  data: function data() {
+    return {
+      toggle: false
+    };
+  },
+  methods: {
+    toggleComments: function toggleComments() {
+      this.toggle = !this.toggle;
+    }
+  }
 });
 
 /***/ }),
@@ -1925,22 +1958,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Form",
+  props: {
+    reply: {
+      "default": false,
+      type: Boolean
+    },
+    callReload: {
+      type: Function
+    },
+    id: {
+      "default": 1,
+      type: Number
+    }
+  },
   data: function data() {
     return {
       comments: [],
-      name: ''
+      textField: ""
     };
   },
-  mounted: function mounted() {},
   methods: {
-    formSubmit: function formSubmit(e) {
+    submit: function submit() {
       var _this = this;
 
-      e.preventDefault();
       axios.post('/comments', {
-        comment: this.comment
+        textField: this.textField,
+        reply: this.reply,
+        id: this.id
       }).then(function (response) {
-        _this.comments = response.data.comments;
+        _this.name = '';
+
+        _this.callReload();
       })["catch"](function (error) {
         console.log(error);
       });
@@ -6407,7 +6455,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".comment-box[data-v-5ca803bb] {\n  background-color: #f8fafc;\n  box-shadow: 0 0 10px 2px lightgrey;\n  border-radius: 10px;\n  min-width: 400px;\n  width: 80%;\n  height: 700px;\n}\n.comment-box p[data-v-5ca803bb] {\n  padding: 50px;\n  text-align: center;\n}", ""]);
+exports.push([module.i, ".comment-box[data-v-5ca803bb] {\n  background-color: #f8fafc;\n  box-shadow: 0 0 10px 2px lightgrey;\n  border-radius: 10px;\n  min-width: 400px;\n  width: 80%;\n  padding: 20px;\n}\n.comment-box p[data-v-5ca803bb] {\n  padding: 50px;\n  text-align: center;\n}", ""]);
 
 // exports
 
@@ -6426,7 +6474,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".comment[data-v-3c9357f0] {\n  padding: 5px;\n  font-size: 15px;\n}\n.comment li[data-v-3c9357f0] {\n  list-style: none;\n  font-size: 20px;\n}\n.comment .toggleBtn[data-v-3c9357f0]:hover {\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -38003,6 +38051,8 @@ var render = function() {
     "div",
     { staticClass: "comment-box" },
     [
+      _c("Form", { attrs: { callReload: _vm.getAllItems } }),
+      _vm._v(" "),
       _c(
         "ul",
         { staticClass: "comment-list" },
@@ -38010,14 +38060,16 @@ var render = function() {
           return _c(
             "li",
             { key: comment.id },
-            [_c("Comment", { attrs: { comment: comment } })],
+            [
+              _c("Comment", {
+                attrs: { callReload: _vm.getAllItems, comment: comment }
+              })
+            ],
             1
           )
         }),
         0
-      ),
-      _vm._v(" "),
-      _c("Form")
+      )
     ],
     1
   )
@@ -38044,7 +38096,62 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    " + _vm._s(_vm.comment) + "\n")])
+  return _c("div", { staticClass: "comment" }, [
+    _c("div", [
+      _vm._v("\n        " + _vm._s(_vm.comment.textField) + "\n        "),
+      !_vm.reply
+        ? _c(
+            "div",
+            { staticClass: "toggleBtn", on: { click: _vm.toggleComments } },
+            [_vm._v("Reply")]
+          )
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: this.toggle,
+            expression: "this.toggle"
+          }
+        ]
+      },
+      [
+        _vm.reply === false
+          ? _c("div", { staticClass: "reply-box" }, [
+              _vm.comment.replies.length > 0
+                ? _c(
+                    "ul",
+                    { staticClass: "reply-list" },
+                    _vm._l(_vm.comment.replies, function(reply) {
+                      return _c(
+                        "li",
+                        { key: reply.id },
+                        [
+                          _c("Comment", {
+                            attrs: { comment: reply, reply: true }
+                          })
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  )
+                : _vm._e()
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("Form", {
+          attrs: { callReload: _vm.callReload, reply: true, id: _vm.comment.id }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38068,31 +38175,46 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("form", { on: { submit: _vm.formSubmit } }, [
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.name,
-          expression: "name"
-        }
-      ],
-      staticClass: "form-control",
-      attrs: { type: "text", placeholder: "Įveskite vardą" },
-      domProps: { value: _vm.name },
+  return _c(
+    "form",
+    {
       on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
-          }
-          _vm.name = $event.target.value
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.submit()
         }
       }
-    }),
-    _vm._v(" "),
-    _c("button", { staticClass: "btn btn-success" }, [_vm._v("Submit")])
-  ])
+    },
+    [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.textField,
+            expression: "textField"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { type: "text", placeholder: "Įveskite komentarą" },
+        domProps: { value: _vm.textField },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.textField = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-success", attrs: { type: "submit" } },
+        [_vm._v("Paskelbti")]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
-    protected $fillable = ['reply'];
-
-    protected $appends = ['comment'];
+    protected $fillable = ["textField"];
 
     public function comment()
     {
-        $this->belongsTo(Comment::class);
+        return $this->belongsTo(Comment::class);
     }
 }

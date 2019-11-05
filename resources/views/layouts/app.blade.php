@@ -16,7 +16,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <script src="https://kit.fontawesome.com/3451ecd6e5.js" crossorigin="anonymous"></script>
+{{--    <script src="https://kit.fontawesome.com/3451ecd6e5.js" crossorigin="anonymous"></script>--}}
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -107,10 +107,5 @@
             @yield('content')
         </main>
     </div>
-{{--    <script type="application/javascript">--}}
-{{--        $('.avatar').change(function() {--}}
-{{--            alert("body")--}}
-{{--        });--}}
-{{--    </script>--}}
 </body>
 </html>

@@ -1,16 +1,11 @@
 <template>
     <div class="comment-box">
+        <Form :callReload = getAllItems></Form>
         <ul class="comment-list">
             <li v-for="comment in comments" :key="comment.id">
-                <Comment :comment="comment"></Comment>
-<!--                <ul class="reply-list" v-if="comment.replies">-->
-<!--                    <li v-for="reply in comment.replies" :key="reply.id" >-->
-<!--                        <Comment :reply="true"></Comment>-->
-<!--                    </li>-->
-<!--                </ul>-->
+                <Comment :callReload = getAllItems :comment="comment"></Comment>
             </li>
         </ul>
-        <Form></Form>
     </div>
 </template>
 <script>
