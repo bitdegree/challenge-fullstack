@@ -19,7 +19,7 @@ class CreateCommentsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
-            $table->string("textField")->default("default");
+            $table->longText("textField")->default("default");
             $table->timestamps();
         });
     }

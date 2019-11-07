@@ -1,13 +1,49 @@
 .comment{
-padding: 5px;
-    li{
-        list-style: none;
-        font-size: 20px;
-    }
+    padding: 5px;
     font-size: 15px;
-    .toggleBtn{
+    .actuall-comment{
+        display: flex;
+        .infoside{
+            display: block;
+            header{
+                display: inline-block;
+                div{
+                    float: left;
+                    margin: 5px;
+                    vertical-align: middle;
+                    height: 20px;
+                    line-height: 20px;
+                }
+                .name{
+                    font-size: 17px;
+                    font-weight: bold;
+                }
+                .date{
+                    color: gray;
+                    font-size: 14px;
+                }
+            }
+            padding: 10px;
+        }
+        .imgside{
+            img{
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+            }
+            padding: 10px;
+        }
+    }
+    .togglebtn{
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
         &:hover{
             cursor: pointer;
         }
+    }
+    .reply-list{
+        margin: 0;
+        list-style: none;
     }
 }

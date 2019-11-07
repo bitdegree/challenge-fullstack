@@ -1,7 +1,8 @@
 <template>
-    <form @submit.prevent="submit()">
-        <input type="text" class="form-control" placeholder="Įveskite komentarą" v-model="textField">
-        <button class="btn btn-success" type="submit">Paskelbti</button>
+    <form class="form" @submit.prevent="submit()">
+        <input type="text" class="form-control-plaintext textField" placeholder="Post a comment" v-model="textField">
+        <button :disabled="disabled" class="btn btn-success submit" type="submit">Post</button>
+        <button :disabled="disabled" class="btn btn-dark submit" type="submit">Cancel</button>
     </form>
 </template>
 
@@ -19,7 +20,11 @@
             id: {
                 default: 1,
                 type: Number
-            }
+            },
+            disabled: {
+                default: true,
+                type: Boolean
+            },
         },
         data() {
             return {
@@ -38,6 +43,7 @@
                     .then(response => {
                         this.name = '';
                          this.callReload();
+                         this.textField = '';
                     })
                     .catch(function (error) {
                         console.log(error)

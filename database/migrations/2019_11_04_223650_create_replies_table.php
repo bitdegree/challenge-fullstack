@@ -20,7 +20,7 @@ class CreateRepliesTable extends Migration
                 ->references('id')
                 ->on('comments')
                 ->onDelete('cascade');
-            $table->string("textField")->default("default");
+            $table->longText("textField")->default("default");
             $table->timestamps();
         });
     }

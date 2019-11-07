@@ -14,6 +14,15 @@
             </form>
         </div>
         <comment-box :user="{{json_encode(auth()->user())}}"></comment-box>
+        <div class="d-flex w-100">
+            <div class="float-left" style="width: 65%">
+                <comment-box :user="{{json_encode(auth()->user())}}"></comment-box>
+            </div>
+            <div class="float-right" style="width: 30%">
+                <comment-box :user="{{json_encode(auth()->user())}}"></comment-box>
+            </div>
+        </div>
+
     </div>
 </div>
 @endsection
