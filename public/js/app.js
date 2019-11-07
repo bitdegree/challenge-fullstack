@@ -1959,12 +1959,20 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       toggle: false,
-      src: 'https://i.pinimg.com/originals/54/51/04/545104ed5f91a931e85f2be92048fd9f.jpg'
+      replies: []
     };
   },
   methods: {
-    toggleComments: function toggleComments() {
+    toggleComments: function toggleComments($id) {
       this.toggle = !this.toggle;
+      this.getAllReplies($id);
+    },
+    getAllReplies: function getAllReplies($id) {
+      var _this = this;
+
+      axios.get('/replies/' + $id).then(function (response) {
+        _this.replies = response.data.replies;
+      });
     }
   }
 });
@@ -2063,7 +2071,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Reply",
@@ -2079,8 +2086,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      toggle: false,
-      src: 'https://i.pinimg.com/originals/54/51/04/545104ed5f91a931e85f2be92048fd9f.jpg'
+      toggle: false
     };
   },
   methods: {
@@ -6568,7 +6574,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".comment[data-v-3c9357f0] {\n  padding: 5px;\n  font-size: 15px;\n}\n.comment .actuall-comment[data-v-3c9357f0] {\n  display: -webkit-box;\n  display: flex;\n}\n.comment .actuall-comment .infoside[data-v-3c9357f0] {\n  display: block;\n  padding: 10px;\n}\n.comment .actuall-comment .infoside header[data-v-3c9357f0] {\n  display: inline-block;\n}\n.comment .actuall-comment .infoside header div[data-v-3c9357f0] {\n  float: left;\n  margin: 5px;\n  vertical-align: middle;\n  height: 20px;\n  line-height: 20px;\n}\n.comment .actuall-comment .infoside header .name[data-v-3c9357f0] {\n  font-size: 17px;\n  font-weight: bold;\n}\n.comment .actuall-comment .infoside header .date[data-v-3c9357f0] {\n  color: gray;\n  font-size: 14px;\n}\n.comment .actuall-comment .imgside[data-v-3c9357f0] {\n  padding: 10px;\n}\n.comment .actuall-comment .imgside img[data-v-3c9357f0] {\n  width: 70px;\n  height: 70px;\n  border-radius: 50%;\n}\n.comment .togglebtn[data-v-3c9357f0] {\n  margin-left: auto;\n  margin-right: auto;\n  text-align: center;\n}\n.comment .togglebtn[data-v-3c9357f0]:hover {\n  cursor: pointer;\n}\n.comment .reply-list[data-v-3c9357f0] {\n  margin: 0;\n  list-style: none;\n}", ""]);
+exports.push([module.i, ".comment[data-v-3c9357f0] {\n  padding: 5px;\n  font-size: 15px;\n}\n.comment .actuall-comment[data-v-3c9357f0] {\n  display: -webkit-box;\n  display: flex;\n}\n.comment .actuall-comment .infoside[data-v-3c9357f0] {\n  display: block;\n  padding: 10px;\n}\n.comment .actuall-comment .infoside header[data-v-3c9357f0] {\n  display: inline-block;\n}\n.comment .actuall-comment .infoside header div[data-v-3c9357f0] {\n  float: left;\n  margin: 5px;\n  vertical-align: middle;\n  height: 20px;\n  line-height: 20px;\n}\n.comment .actuall-comment .infoside header .name[data-v-3c9357f0] {\n  font-size: 17px;\n  font-weight: bold;\n}\n.comment .actuall-comment .infoside header .date[data-v-3c9357f0] {\n  color: gray;\n  font-size: 14px;\n}\n.comment .actuall-comment .imgside[data-v-3c9357f0] {\n  padding: 10px;\n}\n.comment .actuall-comment .imgside img[data-v-3c9357f0] {\n  width: 70px;\n  height: 70px;\n  border-radius: 50%;\n}\n.comment .togglebtn[data-v-3c9357f0] {\n  margin-left: auto;\n  margin-right: auto;\n  text-align: center;\n}\n.comment .togglebtn[data-v-3c9357f0]:hover {\n  cursor: pointer;\n}\n.comment .reply-box .reply-list[data-v-3c9357f0] {\n  margin: 0;\n  list-style: none;\n}\n.comment .reply-box form[data-v-3c9357f0] {\n  margin-left: 30px;\n  margin-top: 20px;\n}", ""]);
 
 // exports
 
@@ -6606,7 +6612,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".comment[data-v-588f6b74] {\n  padding: 5px;\n  font-size: 15px;\n}\n.comment .actuall-comment[data-v-588f6b74] {\n  display: -webkit-box;\n  display: flex;\n}\n.comment .actuall-comment .infoside[data-v-588f6b74] {\n  display: block;\n  padding: 10px;\n}\n.comment .actuall-comment .infoside header[data-v-588f6b74] {\n  display: inline-block;\n}\n.comment .actuall-comment .infoside header div[data-v-588f6b74] {\n  float: left;\n  margin: 5px;\n  vertical-align: middle;\n  height: 20px;\n  line-height: 20px;\n}\n.comment .actuall-comment .infoside header .name[data-v-588f6b74] {\n  font-size: 17px;\n  font-weight: bold;\n}\n.comment .actuall-comment .infoside header .date[data-v-588f6b74] {\n  color: gray;\n  font-size: 14px;\n}\n.comment .actuall-comment .imgside[data-v-588f6b74] {\n  padding: 10px;\n}\n.comment .actuall-comment .imgside img[data-v-588f6b74] {\n  width: 70px;\n  height: 70px;\n  border-radius: 50%;\n}\n.comment .togglebtn[data-v-588f6b74] {\n  margin-left: auto;\n  margin-right: auto;\n  text-align: center;\n}\n.comment .togglebtn[data-v-588f6b74]:hover {\n  cursor: pointer;\n}\n.comment .reply-list[data-v-588f6b74] {\n  margin: 0;\n  list-style: none;\n}", ""]);
 
 // exports
 
@@ -38219,7 +38225,6 @@ var render = function() {
               _c("Comment", {
                 attrs: {
                   user: !_vm.user,
-                  userInfo: _vm.user,
                   callReload: _vm.getAllItems,
                   comment: comment
                 }
@@ -38281,13 +38286,18 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    !_vm.reply
-      ? _c(
-          "div",
-          { staticClass: "togglebtn", on: { click: _vm.toggleComments } },
-          [_vm._v("Reply")]
-        )
-      : _vm._e(),
+    _c(
+      "div",
+      {
+        staticClass: "togglebtn",
+        on: {
+          click: function($event) {
+            return _vm.toggleComments(_vm.comment.id)
+          }
+        }
+      },
+      [_vm._v("Reply")]
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -38302,40 +38312,38 @@ var render = function() {
         ]
       },
       [
-        _vm.reply === false
-          ? _c("div", { staticClass: "reply-box" }, [
-              _vm.comment.replies.length > 0
-                ? _c(
-                    "ul",
-                    { staticClass: "reply-list" },
-                    _vm._l(_vm.comment.replies, function(reply) {
-                      return _c(
-                        "li",
-                        { key: reply.id },
-                        [
-                          _c("Reply", {
-                            attrs: { reply: reply, userInfo: _vm.userInfo }
-                          })
-                        ],
-                        1
-                      )
-                    }),
-                    0
-                  )
-                : _vm._e()
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("Form", {
-          attrs: {
-            disabled: _vm.user,
-            callReload: _vm.callReload,
-            reply: true,
-            id: _vm.comment.id
-          }
-        })
-      ],
-      1
+        _c(
+          "div",
+          { staticClass: "reply-box" },
+          [
+            _vm.replies.length > 0
+              ? _c(
+                  "ul",
+                  { staticClass: "reply-list" },
+                  _vm._l(_vm.replies, function(reply) {
+                    return _c(
+                      "li",
+                      { key: reply.id },
+                      [_c("Reply", { attrs: { reply: reply } })],
+                      1
+                    )
+                  }),
+                  0
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c("Form", {
+              attrs: {
+                disabled: _vm.user,
+                callReload: _vm.getAllReplies(_vm.comment.id),
+                reply: true,
+                id: _vm.comment.id
+              }
+            })
+          ],
+          1
+        )
+      ]
     )
   ])
 }
@@ -38408,7 +38416,7 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-dark submit",
-          attrs: { disabled: _vm.disabled, type: "submit" }
+          attrs: { disabled: _vm.disabled, type: "reset" }
         },
         [_vm._v("Cancel")]
       )
@@ -38439,12 +38447,22 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "comment" }, [
     _c("div", { staticClass: "actuall-comment" }, [
-      _c("div", { staticClass: "imgside" }),
+      _c("div", { staticClass: "imgside" }, [
+        _c("img", { attrs: { src: _vm.reply.user.avatar } })
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "infoside" }, [
-        _c("div", [_vm._v(_vm._s(_vm.reply.textField))]),
+        _c("header", [
+          _c("div", { staticClass: "name" }, [
+            _vm._v(_vm._s(_vm.reply.user.name))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "date" }, [
+            _vm._v(_vm._s(_vm.reply.updated_at))
+          ])
+        ]),
         _vm._v(" "),
-        _c("div", [_vm._v(_vm._s(_vm.reply))])
+        _c("div", [_vm._v(_vm._s(_vm.reply.textField))])
       ])
     ])
   ])

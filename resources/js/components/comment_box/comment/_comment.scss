@@ -42,8 +42,15 @@
             cursor: pointer;
         }
     }
-    .reply-list{
-        margin: 0;
-        list-style: none;
+    .reply-box{
+        .reply-list{
+            margin: 0;
+            list-style: none;
+        }
+        form{
+            margin-left: 30px;
+            margin-top: 20px;
+        }
     }
+
 }

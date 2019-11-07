@@ -12,16 +12,16 @@
                 <div>{{comment.textField}}</div>
             </div>
         </div>
-        <div v-if="!reply" class="togglebtn" @click="toggleComments">Reply</div>
+        <div class="togglebtn" @click="toggleComments(comment.id)">Reply</div>
         <div v-show="this.toggle">
-            <div class="reply-box" v-if="reply===false">
-                <ul class="reply-list" v-if="comment.replies.length > 0">
-                    <li v-for="reply in comment.replies" :key="reply.id" >
-                        <Reply :reply="reply" :userInfo="userInfo"/>
+            <div class="reply-box">
+                <ul class="reply-list" v-if="replies.length > 0">
+                    <li v-for="reply in replies" :key="reply.id" >
+                        <Reply :reply="reply"/>
                     </li>
                 </ul>
+                <Form :disabled="user" :callReload ="getAllReplies(comment.id)" :reply="true" :id="comment.id"></Form>
             </div>
-            <Form :disabled="user" :callReload ="callReload" :reply="true" :id="comment.id"></Form>
         </div>
     </div>
 </template>
@@ -49,13 +49,20 @@
         data(){
             return {
                 toggle: false,
-                src: 'https://i.pinimg.com/originals/54/51/04/545104ed5f91a931e85f2be92048fd9f.jpg'
+                replies: []
             }
         },
         methods: {
-            toggleComments(){
-                this.toggle = !this.toggle
-            }
+            toggleComments($id){
+                this.toggle = !this.toggle;
+                this.getAllReplies($id);
+            },
+            getAllReplies($id) {
+                axios.get('/replies/'+$id)
+                    .then(response => {
+                        this.replies = response.data.replies;
+                    });
+            },
         },
     }
 </script>

@@ -42,7 +42,8 @@ class CommentsController extends Controller
     {
         if ($request->reply) {
             Comment::find($request->id)->replies()->create([
-                'textField' => $request->textField
+                'textField' => $request->textField,
+                'user_id' => Auth::user()->id,
             ]);
             return response([], 200);
         }

@@ -29,3 +29,5 @@ Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
 Route::get('/callback/{provider}', 'SocialController@callback');
 
 Route::resource('comments', 'CommentsController');
+
+Route::get('/replies/{commentId}', 'RepliesController@index');

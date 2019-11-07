@@ -2,7 +2,7 @@
     <form class="form" @submit.prevent="submit()">
         <input type="text" class="form-control-plaintext textField" placeholder="Post a comment" v-model="textField">
         <button :disabled="disabled" class="btn btn-success submit" type="submit">Post</button>
-        <button :disabled="disabled" class="btn btn-dark submit" type="submit">Cancel</button>
+        <button :disabled="disabled" class="btn btn-dark submit" type="reset">Cancel</button>
     </form>
 </template>
 

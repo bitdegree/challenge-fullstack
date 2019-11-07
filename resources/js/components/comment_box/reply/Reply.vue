@@ -2,15 +2,14 @@
     <div class="comment">
         <div class="actuall-comment">
             <div class="imgside">
-<!--                <img :src="reply.user.avatar">-->
+                <img :src="reply.user.avatar">
             </div>
             <div class="infoside">
-<!--                <header>-->
-<!--                    <div class="name">{{comment.user.name}}</div>-->
-<!--                    <div class="date">{{comment.updated_at}}</div>-->
-<!--                </header>-->
+                <header>
+                    <div class="name">{{reply.user.name}}</div>
+                    <div class="date">{{reply.updated_at}}</div>
+                </header>
                 <div>{{reply.textField}}</div>
-                <div>{{reply}}</div>
             </div>
         </div>
     </div>
@@ -31,7 +30,6 @@
         data(){
             return {
                 toggle: false,
-                src: 'https://i.pinimg.com/originals/54/51/04/545104ed5f91a931e85f2be92048fd9f.jpg'
             }
         },
         methods: {

@@ -3,7 +3,7 @@
         <div @click="changeLimit" class="earlear-comments">{{comments.length-limit > 1 ? comments.length-limit + " earlier comments": ''}}</div>
         <ul class="comment-list">
             <li v-for="comment in comments.slice(0, limit)" :key="comment.id">
-                <Comment :user="!user" :userInfo="user" :callReload = getAllItems :comment="comment"></Comment>
+                <Comment :user="!user" :callReload = getAllItems :comment="comment"></Comment>
             </li>
         </ul>
         <Form :disabled="!user" :callReload = getAllItems></Form>
