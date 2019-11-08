@@ -38,19 +38,10 @@
         margin-left: auto;
         margin-right: auto;
         text-align: center;
+        color: gray;
+        font-size: 12px;
         &:hover{
             cursor: pointer;
         }
     }
-    .reply-box{
-        .reply-list{
-            margin: 0;
-            list-style: none;
-        }
-        form{
-            margin-left: 30px;
-            margin-top: 20px;
-        }
-    }
-
 }

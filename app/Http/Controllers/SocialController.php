@@ -16,18 +16,14 @@ class SocialController extends Controller
     public function callback($provider)
     {
         $getInfo = Socialite::driver($provider)->stateless()->user();
-
         $user = $this->createUser($getInfo, $provider);
-
         auth()->login($user, true);
-
         return redirect()->to('/');
     }
 
     private function createUser($getInfo, $provider)
     {
         $user = User::where('provider_id', $getInfo->id)->first();
-
         if (!$user) {
             $user = User::create([
                 'name'     => $getInfo->name,

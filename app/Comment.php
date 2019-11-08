@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $fillable = ["textField"];
+    protected $fillable = ["textField", "route_name"];
 
     public function user()
     {

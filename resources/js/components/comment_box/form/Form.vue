@@ -1,6 +1,7 @@
 <template>
     <form class="form" @submit.prevent="submit()">
-        <input type="text" class="form-control-plaintext textField" placeholder="Post a comment" v-model="textField">
+        <input type="text" class="form-control-plaintext textField"
+               placeholder="Post a comment" required minlength="8" v-model="textField">
         <button :disabled="disabled" class="btn btn-success submit" type="submit">Post</button>
         <button :disabled="disabled" class="btn btn-dark submit" type="reset">Cancel</button>
     </form>
@@ -25,6 +26,10 @@
                 default: true,
                 type: Boolean
             },
+            routename: {
+                default: 'home',
+                type: String
+            },
         },
         data() {
             return {
@@ -34,20 +39,36 @@
         },
         methods: {
             submit(){
-                axios
-                    .post('/comments', {
-                        textField: this.textField,
-                        reply: this.reply,
-                        id: this.id
-                    })
-                    .then(response => {
-                        this.name = '';
-                         this.callReload();
-                         this.textField = '';
-                    })
-                    .catch(function (error) {
-                        console.log(error)
-                    });
+                if(this.reply){
+                    axios
+                        .post('/replies', {
+                            textField: this.textField,
+                            id: this.id,
+                        })
+                        .then(response => {
+                            this.name = '';
+                            this.callReload(this.id);
+                            this.textField = '';
+                        })
+                        .catch(function (error) {
+                            console.log(error)
+                        });
+                }else{
+                    axios
+                        .post('/comments', {
+                            textField: this.textField,
+                            id: this.id,
+                            routeName: this.routename,
+                        })
+                        .then(response => {
+                            this.name = '';
+                            this.callReload(this.id);
+                            this.textField = '';
+                        })
+                        .catch(function (error) {
+                            console.log(error)
+                        });
+                }
             }
         }
     }

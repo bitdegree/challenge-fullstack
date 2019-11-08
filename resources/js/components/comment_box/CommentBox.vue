@@ -1,12 +1,12 @@
 <template>
     <div class="comment-box">
-        <div @click="changeLimit" class="earlear-comments">{{comments.length-limit > 1 ? comments.length-limit + " earlier comments": ''}}</div>
+        <div @click="changeLimit" class="earlear-comments">{{earlierComments}}</div>
         <ul class="comment-list">
             <li v-for="comment in comments.slice(0, limit)" :key="comment.id">
                 <Comment :user="!user" :callReload = getAllItems :comment="comment"></Comment>
             </li>
         </ul>
-        <Form :disabled="!user" :callReload = getAllItems></Form>
+        <Form :routename="routename" :disabled="!user" :callReload = getAllItems></Form>
     </div>
 </template>
 <script>
@@ -17,7 +17,10 @@
         props: {
             user: {
                 default: false
-            }
+            },
+            routename: {
+                default: 'home'
+            },
         },
         name: 'commentbox',
         components: {Form, Comment},
@@ -28,8 +31,10 @@
             }
         },
         computed:{
-            computedObj(){
-                return this.limit ? this.comments.slice(0,this.limit) : this.comments
+            earlierComments(){
+                return (
+                    this.comments.length-this.limit > 1 ? this.comments.length-this.limit + " earlier comments": ''
+                )
             }
         },
         mounted() {
@@ -38,7 +43,7 @@
 
         methods: {
             getAllItems() {
-                axios.get('/comments')
+                axios.get('/comments/'+this.routename)
                     .then(response => {
                         this.comments = response.data.comments;
                     });

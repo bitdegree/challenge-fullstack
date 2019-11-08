@@ -20,6 +20,7 @@ class CreateCommentsTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade');
             $table->longText("textField")->default("default");
+            $table->string('route_name')->default('home');
             $table->timestamps();
         });
     }

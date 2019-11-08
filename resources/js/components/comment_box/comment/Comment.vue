@@ -12,39 +12,29 @@
                 <div>{{comment.textField}}</div>
             </div>
         </div>
-        <div class="togglebtn" @click="toggleComments(comment.id)">Reply</div>
-        <div v-show="this.toggle">
-            <div class="reply-box">
-                <ul class="reply-list" v-if="replies.length > 0">
-                    <li v-for="reply in replies" :key="reply.id" >
-                        <Reply :reply="reply"/>
-                    </li>
-                </ul>
-                <Form :disabled="user" :callReload ="getAllReplies(comment.id)" :reply="true" :id="comment.id"></Form>
-            </div>
+        <div class="togglebtn" @click="toggleComments">Reply</div>
+
+        <div class="list" v-show="this.toggle">
+            <ReplyBox :commentid="comment.id" :user="user" />
         </div>
     </div>
 </template>
 
 <script>
     import Form from "../form/Form";
-    import Reply from "../reply/Reply";
+    import Reply from "../reply_box/reply/Reply";
+    import ReplyBox from "../reply_box/ReplyBox";
     export default {
         name: "Comment",
-        components: {Reply, Form},
+        components: {ReplyBox, Form},
         props: {
             comment: '',
-            reply: {
-                default: false,
-                type: Boolean,
-            },
             callReload: {
                 type: Function
             },
             user: {
                 default: false
             },
-            userInfo: ''
         },
         data(){
             return {
@@ -53,15 +43,8 @@
             }
         },
         methods: {
-            toggleComments($id){
+            toggleComments(){
                 this.toggle = !this.toggle;
-                this.getAllReplies($id);
-            },
-            getAllReplies($id) {
-                axios.get('/replies/'+$id)
-                    .then(response => {
-                        this.replies = response.data.replies;
-                    });
             },
         },
     }

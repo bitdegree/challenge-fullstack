@@ -5,6 +5,7 @@
         display: flex;
         .infoside{
             display: block;
+            padding: 10px;
             header{
                 display: inline-block;
                 div{
@@ -23,27 +24,14 @@
                     font-size: 14px;
                 }
             }
-            padding: 10px;
         }
         .imgside{
+            padding: 10px;
             img{
                 width: 70px;
                 height: 70px;
                 border-radius: 50%;
             }
-            padding: 10px;
         }
-    }
-    .togglebtn{
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-        &:hover{
-            cursor: pointer;
-        }
-    }
-    .reply-list{
-        margin: 0;
-        list-style: none;
     }
 }

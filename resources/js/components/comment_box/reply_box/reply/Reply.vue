@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import Form from "../form/Form";
+    import Form from "../../form/Form";
     export default {
         name: "Reply",
         components: {Form},
