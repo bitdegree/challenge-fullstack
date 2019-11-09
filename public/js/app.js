@@ -1887,6 +1887,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/comments/' + this.routename).then(function (response) {
         _this.comments = response.data.comments;
+      })["catch"](function (error) {
+        console.log(error);
       });
     },
     changeLimit: function changeLimit() {

@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\User;
 use Faker\Generator as Faker;
+use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 
 /*
@@ -17,11 +18,15 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+    $client = new Client();
+    $body = $client->get('https://randomuser.me/api/')->getBody();
+    $obj = json_decode($body);
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
+        'name' => $obj->results[0]->name->first,
+        'email' => $obj->results[0]->email,
         'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'password' => $obj->results[0]->login->sha256, // password
         'remember_token' => Str::random(10),
+        'avatar' => $obj->results[0]->picture->medium
     ];
 });

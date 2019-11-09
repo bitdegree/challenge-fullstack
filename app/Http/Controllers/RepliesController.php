@@ -12,7 +12,7 @@ class RepliesController extends Controller
     public function index($commentId)
     {
         $replies = Reply::where('comment_id', $commentId)->with('user')->orderBy('id', 'desc')->get();
-        return response(['replies' => $replies]);
+        return response(['replies' => $replies], 200);
     }
 
     public function store(ReplyStoreRequest $request)

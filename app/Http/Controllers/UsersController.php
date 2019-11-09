@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersUpdateRequest;
+use App\Services\ImageStoringService;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Facades\Image;
 
 class UsersController extends Controller
 {
@@ -12,14 +12,13 @@ class UsersController extends Controller
     {
         return view('profile');
     }
+
     public function update(UsersUpdateRequest $request)
     {
-        $file = $request->file('avatar');
-        $avatarName = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
-        $user = Auth::user();
-        $user->avatar = '/storage/users/' . $avatarName;
-        $user->save();
-        Image::make($file)->resize(300, 300)->save(public_path('storage/users/' . $avatarName));
+        $imageService = new ImageStoringService($request);
+        Auth::user()->update([
+            'avatar' => '/storage/users/' . $imageService->getAvatarName()
+        ]);
         return redirect()->route('profile');
     }
 }

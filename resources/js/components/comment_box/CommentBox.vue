@@ -43,10 +43,13 @@
 
         methods: {
             getAllItems() {
-                axios.get('/comments/'+this.routename)
+                axios
+                    .get('/comments/' + this.routename)
                     .then(response => {
                         this.comments = response.data.comments;
-                    });
+                    }).catch(error => {
+                    console.log(error)
+                    })
             },
             changeLimit(){
                 this.limit +=5;

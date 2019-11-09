@@ -1,11 +1,13 @@
 <?php
 
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
 Route::get('/', 'HomeController')->name('home');
+Route::get('error/{errorCode}', 'ErrorController')->name('error');
 Route::get('profile', 'UsersController@index')->name('profile');
 Route::post('profile/change', 'UsersController@update')->name('profile.change');
 
