@@ -8,6 +8,11 @@ class Comment extends Model
 {
     protected $fillable = ["textField", "route_name"];
 
+    protected $casts = [
+        'updated_at' => 'datetime: h:i A',
+    ];
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
