@@ -13,11 +13,10 @@ class UsersController extends Controller
         return view('profile');
     }
 
-    public function update(UsersUpdateRequest $request)
+    public function update(UsersUpdateRequest $request, ImageStoringService $imageStoringService)
     {
-        $imageService = new ImageStoringService($request);
         Auth::user()->update([
-            'avatar' => '/storage/users/' . $imageService->getAvatarName()
+            'avatar' => '/storage/users/' . $imageStoringService->updateAvatarAndGetName($request)
         ]);
         return redirect()->route('profile');
     }

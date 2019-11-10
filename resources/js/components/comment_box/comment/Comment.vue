@@ -13,10 +13,11 @@
             </div>
         </div>
         <div class="togglebtn" @click="toggleComments">Reply</div>
-
-        <div class="list" v-show="this.toggle">
-            <ReplyBox :commentid="comment.id" :user="user" />
-        </div>
+        <transition-group name="slide-fade" mode="out-in">
+            <div class="list" v-show="toggle" :key="1">
+                <ReplyBox :commentid="comment.id" :user="user" />
+            </div>
+        </transition-group>
     </div>
 </template>
 

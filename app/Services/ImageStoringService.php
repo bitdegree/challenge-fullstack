@@ -9,19 +9,16 @@ class ImageStoringService
 {
     private $avatarName;
 
-    public function __construct(UsersUpdateRequest $request)
+    public function updateAvatarAndGetName(UsersUpdateRequest $request)
     {
-        $file = $request->file('avatar');
-        $avatarName = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
-        $this->avatarName = $avatarName;
-        Image::make($file)->resize(300, 300)->save(public_path('storage/users/' . $avatarName));
-    }
-
-    /**
-     * @return string
-     */
-    public function getAvatarName(): string
-    {
+        try {
+            $file = $request->file('avatar');
+            $avatarName = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+            $this->avatarName = $avatarName;
+            Image::make($file)->resize(300, 300)->save(public_path('storage/users/' . $avatarName));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', "Nepavyko pakeisti nuotraukos");
+        }
         return $this->avatarName;
     }
 }

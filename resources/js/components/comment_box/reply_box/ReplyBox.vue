@@ -5,8 +5,7 @@
                 <Reply :reply="reply"/>
             </li>
         </ul>
-        <Form :disabled="user" :callReload =getAllReplies :reply="true" :id="commentid"></Form>
-
+        <Form class="ml-5" :disabled="user" :callReload =getAllReplies :reply="true" :id="commentid"></Form>
     </div>
 </template>
 

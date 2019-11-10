@@ -17,7 +17,7 @@ class RepliesController extends Controller
 
     public function store(ReplyStoreRequest $request)
     {
-        Comment::find($request->id)->replies()->create([
+        Comment::findOrFail($request->id)->replies()->create([
             'textField' => $request->textField,
             'user_id' => Auth::user()->id,
         ]);

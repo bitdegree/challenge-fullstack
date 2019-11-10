@@ -1,15 +1,20 @@
 <template>
-    <form class="form" @submit.prevent="submit()">
-        <input type="text" class="form-control-plaintext textField"
-               placeholder="Post a comment" required minlength="8" v-model="textField">
-        <button :disabled="disabled" class="btn btn-success submit" type="submit">Post</button>
-        <button :disabled="disabled" class="btn btn-dark submit" type="reset">Cancel</button>
-    </form>
+    <div>
+        <Error :error="error" :toggle-error="toggleError"></Error>
+        <form class="form" @submit.prevent="submit()">
+            <input type="text" class="form-control-plaintext textField"
+                   placeholder="Post a comment" required v-model="textField">
+            <button :disabled="disabled" class="btn btn-success submit" type="submit">Post</button>
+            <button :disabled="disabled" class="btn btn-dark submit" type="reset">Cancel</button>
+        </form>
+    </div>
 </template>
 
 <script>
+    import Error from "../../error/Error";
     export default {
         name: "Form",
+        components: {Error},
         props: {
             reply: {
                 default: false,
@@ -35,6 +40,8 @@
             return {
                 comments: [],
                 textField: "",
+                error: '',
+                toggleError: false,
             }
         },
         methods: {
@@ -49,10 +56,9 @@
                             this.name = '';
                             this.callReload(this.id);
                             this.textField = '';
+                            console.log(response.data)
                         })
-                        .catch(function (error) {
-                            console.log(error)
-                        });
+                        .catch(error => {});
                 }else{
                     axios
                         .post('/comments', {
@@ -61,13 +67,16 @@
                             routeName: this.routename,
                         })
                         .then(response => {
-                            this.name = '';
-                            this.callReload(this.id);
-                            this.textField = '';
+                            if (response.data.error){
+                                this.toggleError = !this.toggleError;
+                                this.error = response.data.error;
+                            } else {
+                                this.name = '';
+                                this.callReload(this.id);
+                                this.textField = '';
+                            }
                         })
-                        .catch(function (error) {
-                            console.log(error)
-                        });
+                        .catch(error => {});
                 }
             }
         }

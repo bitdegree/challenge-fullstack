@@ -12,6 +12,8 @@ PHP 7.1
  
 Composer
 
+Node.js
+
 
 ### Installing
 
@@ -73,7 +75,7 @@ Interface is user friendly just check it out, no explanation is needed http://lo
 
 Component takes 2 props: `route_name` and `user`.
 
-`route_name` should be used as ID string, if you use the same id on different pages, you'll get same comment box
+`route_name` should be used as ID string, if you use the same id on different pages, you'll get the same comment box
 
 `user` should be used as boolean to restrict or allow users to post
 
@@ -83,7 +85,7 @@ I did my best to make code maintainable by separating concerns. Controllers are 
 in order to make code readable I used PSR-12 coding standart. I made my code robust by validating data 
 using FormRequests, handing common errors and using modular approach while making style.
 
-Also the comment-box component is reusable, but only if 4 routes are configured correctly(2 for 
+Also the comment-box component is reusable, but only if 4 http endpoints are configured correctly (2 for 
 comments, 2 for replies)
 
 ### In addition

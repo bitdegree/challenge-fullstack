@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\JsonResponse;
 
 class CommentStoreRequest extends FormRequest
 {
@@ -29,4 +28,6 @@ class CommentStoreRequest extends FormRequest
             'routeName' => 'required',
         ];
     }
+
+
 }
