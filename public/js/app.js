@@ -2034,11 +2034,17 @@ __webpack_require__.r(__webpack_exports__);
           textField: this.textField,
           id: this.id
         }).then(function (response) {
-          _this.name = '';
+          if (response.data.error) {
+            _this.toggleError = !_this.toggleError;
+            _this.error = response.data.error;
+          } else {
+            _this.name = '';
 
-          _this.callReload(_this.id);
+            _this.callReload(_this.id);
 
-          _this.textField = '';
+            _this.textField = '';
+          }
+
           console.log(response.data);
         })["catch"](function (error) {});
       } else {

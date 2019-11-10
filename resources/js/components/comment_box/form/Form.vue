@@ -53,9 +53,14 @@
                             id: this.id,
                         })
                         .then(response => {
-                            this.name = '';
-                            this.callReload(this.id);
-                            this.textField = '';
+                            if (response.data.error){
+                                this.toggleError = !this.toggleError;
+                                this.error = response.data.error;
+                            } else {
+                                this.name = '';
+                                this.callReload(this.id);
+                                this.textField = '';
+                            }
                             console.log(response.data)
                         })
                         .catch(error => {});
