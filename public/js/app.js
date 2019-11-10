@@ -6671,7 +6671,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".comment[data-v-3c9357f0] {\n  padding: 5px;\n  font-size: 15px;\n}\n.comment .actuall-comment[data-v-3c9357f0] {\n  display: -webkit-box;\n  display: flex;\n}\n.comment .actuall-comment .infoside[data-v-3c9357f0] {\n  display: block;\n  padding: 10px;\n}\n.comment .actuall-comment .infoside header[data-v-3c9357f0] {\n  display: inline-block;\n}\n.comment .actuall-comment .infoside header div[data-v-3c9357f0] {\n  float: left;\n  margin: 5px;\n  vertical-align: middle;\n  height: 20px;\n  line-height: 20px;\n}\n.comment .actuall-comment .infoside header .name[data-v-3c9357f0] {\n  font-size: 17px;\n  font-weight: bold;\n}\n.comment .actuall-comment .infoside header .date[data-v-3c9357f0] {\n  color: gray;\n  font-size: 14px;\n}\n.comment .actuall-comment .imgside[data-v-3c9357f0] {\n  padding: 10px;\n}\n.comment .actuall-comment .imgside img[data-v-3c9357f0] {\n  width: 70px;\n  height: 70px;\n  border-radius: 50%;\n}\n.comment .togglebtn[data-v-3c9357f0] {\n  margin-left: auto;\n  margin-right: auto;\n  text-align: center;\n  color: gray;\n  font-size: 12px;\n}\n.comment .togglebtn[data-v-3c9357f0]:hover {\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".comment[data-v-3c9357f0] {\n  padding: 5px;\n  font-size: 15px;\n  word-break: break-all;\n}\n.comment .actuall-comment[data-v-3c9357f0] {\n  display: -webkit-box;\n  display: flex;\n}\n.comment .actuall-comment .infoside[data-v-3c9357f0] {\n  display: block;\n  padding: 10px;\n}\n.comment .actuall-comment .infoside .header[data-v-3c9357f0] {\n  display: inline-block;\n}\n.comment .actuall-comment .infoside .header div[data-v-3c9357f0] {\n  float: left;\n  margin-right: 12px;\n  vertical-align: middle;\n  height: 20px;\n  line-height: 20px;\n}\n.comment .actuall-comment .infoside .header .name[data-v-3c9357f0] {\n  font-size: 17px;\n  font-weight: bold;\n}\n.comment .actuall-comment .infoside .header .date[data-v-3c9357f0] {\n  color: gray;\n  font-size: 14px;\n}\n.comment .actuall-comment .imgside[data-v-3c9357f0] {\n  padding: 10px;\n}\n.comment .actuall-comment .imgside img[data-v-3c9357f0] {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n}\n.comment .togglebtn[data-v-3c9357f0] {\n  margin-left: auto;\n  margin-right: auto;\n  text-align: center;\n  color: gray;\n  font-size: 12px;\n}\n.comment .togglebtn[data-v-3c9357f0]:hover {\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -38417,7 +38417,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "infoside" }, [
-          _c("header", [
+          _c("div", { staticClass: "header" }, [
             _c("div", { staticClass: "name" }, [
               _vm._v(_vm._s(_vm.comment.user.name))
             ]),

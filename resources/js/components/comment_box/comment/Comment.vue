@@ -5,10 +5,10 @@
                 <img :src="comment.user.avatar">
             </div>
             <div class="infoside">
-                <header>
+                <div class="header">
                     <div class="name">{{comment.user.name}}</div>
                     <div class="date">{{comment.updated_at}}</div>
-                </header>
+                </div>
                 <div>{{comment.textField}}</div>
             </div>
         </div>
