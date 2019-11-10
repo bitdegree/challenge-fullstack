@@ -40,7 +40,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($request->request->has('textField')) {
-            return response()->json(['error' => $exception->getMessage()], 200);
+            return response()->json(['error' => 'Input field must contain at least 8 symbols'], 200);
         } else {
             return parent::render($request, $exception);
         }
