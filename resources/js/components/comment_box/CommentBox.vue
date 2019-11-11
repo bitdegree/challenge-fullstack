@@ -1,5 +1,6 @@
 <template>
     <div class="comment-box">
+        <vue-progress-bar></vue-progress-bar>
         <div @click="changeLimit" class="earlear-comments">{{earlierComments}}</div>
         <ul class="comment-list">
             <li v-for="comment in comments.slice(0, limit)" :key="comment.id">
@@ -40,13 +41,14 @@
         mounted() {
             this.getAllItems();
         },
-
         methods: {
             getAllItems() {
+                this.$Progress.start();
                 axios
                     .get('/comments/' + this.routename)
                     .then(response => {
                         this.comments = response.data.comments;
+                        this.$Progress.finish();
                     }).catch(error => {
                     console.log(error)
                     })

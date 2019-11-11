@@ -46,6 +46,7 @@
         },
         methods: {
             submit(){
+                this.$Progress.start();
                 if(this.reply){
                     axios
                         .post('/replies', {
@@ -56,10 +57,13 @@
                             if (response.data.error){
                                 this.toggleError = !this.toggleError;
                                 this.error = response.data.error;
+                                this.$Progress.fail();
                             } else {
                                 this.name = '';
                                 this.callReload(this.id);
                                 this.textField = '';
+                                this.toggleError = false;
+                                this.$Progress.finish();
                             }
                             console.log(response.data)
                         })
@@ -75,10 +79,13 @@
                             if (response.data.error){
                                 this.toggleError = !this.toggleError;
                                 this.error = response.data.error;
+                                this.$Progress.fail();
                             } else {
                                 this.name = '';
                                 this.callReload(this.id);
                                 this.textField = '';
+                                this.toggleError = false;
+                                this.$Progress.finish();
                             }
                         })
                         .catch(error => {});
