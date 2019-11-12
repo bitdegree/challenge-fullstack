@@ -56,6 +56,12 @@ Seed records
 php artisan db:seed
 ```
 
+Create symlink
+
+```
+php artisan storage:link
+```
+
 Turn on task watcher
 
 ```
