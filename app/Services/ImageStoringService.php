@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Exceptions\UnableToUpdateImageException;
 use App\Http\Requests\UsersUpdateRequest;
 use Intervention\Image\Facades\Image;
+use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 class ImageStoringService
 {
@@ -17,7 +19,7 @@ class ImageStoringService
             $this->avatarName = $avatarName;
             Image::make($file)->resize(300, 300)->save(public_path('storage/users/' . $avatarName));
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', "Nepavyko pakeisti nuotraukos");
+            throw new UnableToUpdateImageException();
         }
         return $this->avatarName;
     }
