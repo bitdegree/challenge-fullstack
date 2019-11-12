@@ -15,7 +15,7 @@ class ImageStoringService
     {
         try {
             $file = $request->file('avatar');
-            $avatarName = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+            $avatarName = $file->getClientOriginalName();
             $this->avatarName = $avatarName;
             Image::make($file)->resize(300, 300)->save(public_path('storage/users/' . $avatarName));
         } catch (\Exception $e) {
