@@ -79,11 +79,9 @@ Component takes 2 props: `route_name` and `user`.
 ### About codebase
 
 I did my best to make code maintainable by separating concerns. Controllers are about 2 lines long. Also, 
-in order to make code readable I used PSR-12 coding standart. I made my code robust by validating data 
+in order to make code readable I used PSR-12 coding standart. I tried to made my code robust by validating data 
 using FormRequests, handing common errors and using modular approach while making style.
 
-Also the comment-box component is reusable, but only if 4 http endpoints are configured correctly (2 for 
-comments, 2 for replies)
 
 ### In addition
 
