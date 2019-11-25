@@ -45,16 +45,12 @@ Generate key
 ```
 php artisan key:generate
 ```
-Migrate database
+Migrate database and seed
 
 ```
-php artisan migrate
+php artisan migrate --seed
 ```
-Seed records
 
-```
-php artisan db:seed
-```
 
 Create symlink
 
@@ -62,13 +58,8 @@ Create symlink
 php artisan storage:link
 ```
 
-Turn on task watcher
 
-```
-npm run watch
-```
-
-Set up local server, it might be vagrant, docker or integrated server of laravel:
+Set up server:
 
 ```
 php artisan serve
