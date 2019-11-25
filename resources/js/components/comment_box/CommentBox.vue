@@ -1,5 +1,5 @@
 <template>
-    <div class="comment-box">
+    <section class="comment-box">
         <vue-progress-bar></vue-progress-bar>
         <div @click="changeLimit" class="earlear-comments">{{earlierComments}}</div>
         <ul class="comment-list">
@@ -8,7 +8,7 @@
             </li>
         </ul>
         <Form :routename="routename" :disabled="!user" :callReload = getAllItems></Form>
-    </div>
+    </section>
 </template>
 <script>
 
@@ -62,5 +62,5 @@
     }
 </script>
 <style lang="scss" scoped>
-    @import "commentBox";
+    @import "CommentBox";
 </style>

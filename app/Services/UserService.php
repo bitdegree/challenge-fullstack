@@ -3,12 +3,19 @@
 namespace App\Services;
 
 use App\User;
+use Illuminate\Support\Facades\Redirect;
 
 class UserService
 {
     private $user;
 
-    public function __construct($getInfo, $provider)
+    /**
+     * UserService constructor.
+     * @param $getInfo (comes from Socialite user())
+     * @param $provider
+     * @return Redirect|void
+     */
+    public function __construct($getInfo, string $provider)
     {
         try {
             $user = User::where('provider_id', $getInfo->id)->first();
@@ -27,7 +34,10 @@ class UserService
         }
     }
 
-    public function getUser()
+    /**
+     * @return User
+     */
+    public function getUser(): User
     {
         return $this->user;
     }

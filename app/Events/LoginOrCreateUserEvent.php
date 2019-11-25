@@ -21,21 +21,10 @@ class LoginOrCreateUserEvent
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param string $provider
      */
-    public function __construct($provider)
+    public function __construct(string $provider)
     {
-
         $this->provider = $provider;
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
     }
 }

@@ -1,9 +1,9 @@
 <template>
-    <div class="comment">
-        <div class="actuall-comment">
-            <div class="imgside">
+    <article class="comment">
+        <aside class="actuall-comment">
+            <figure class="imgside">
                 <img :src="comment.user.avatar">
-            </div>
+            </figure>
             <div class="infoside">
                 <div class="header">
                     <div class="name">{{comment.user.name}}</div>
@@ -11,14 +11,16 @@
                 </div>
                 <div>{{comment.textField}}</div>
             </div>
-        </div>
-        <div class="togglebtn" @click="toggleComments">Reply</div>
+        </aside>
+        <button class="togglebtn" @click="toggleComments">
+            Reply
+        </button>
         <transition-group name="slide-fade" mode="out-in">
             <div class="list" v-show="toggle" :key="1">
                 <ReplyBox :commentid="comment.id" :user="user" />
             </div>
         </transition-group>
-    </div>
+    </article>
 </template>
 
 <script>
@@ -52,5 +54,5 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "comment";
+    @import "Comment";
 </style>

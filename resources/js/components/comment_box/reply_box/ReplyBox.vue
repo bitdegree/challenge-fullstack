@@ -1,12 +1,12 @@
 <template>
-    <div class="reply-box">
+    <article class="reply-box">
         <ul class="reply-list" v-if="replies.length > 0">
             <li v-for="reply in replies" :key="reply.id" >
                 <Reply :reply="reply"/>
             </li>
         </ul>
         <Form class="ml-5" :disabled="user" :callReload =getAllReplies :reply="true" :id="commentid"></Form>
-    </div>
+    </article>
 </template>
 
 <script>
@@ -36,5 +36,5 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "replyBox";
+    @import "ReplyBox";
 </style>

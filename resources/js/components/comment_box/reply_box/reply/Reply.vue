@@ -1,16 +1,16 @@
 <template>
     <div class="comment">
         <div class="actuall-comment">
-            <div class="imgside">
+            <figure class="imgside">
                 <img :src="reply.user.avatar">
-            </div>
-            <div class="infoside">
+            </figure>
+            <summary class="infoside">
                 <header>
                     <div class="name">{{reply.user.name}}</div>
                     <div class="date">{{reply.updated_at}}</div>
                 </header>
                 <div>{{reply.textField}}</div>
-            </div>
+            </summary>
         </div>
     </div>
 </template>
@@ -41,5 +41,5 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "reply";
+    @import "Reply";
 </style>

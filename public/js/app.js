@@ -1939,6 +1939,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -6693,7 +6695,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".comment[data-v-3c9357f0] {\n  padding: 5px;\n  font-size: 15px;\n  word-break: break-all;\n}\n.comment .actuall-comment[data-v-3c9357f0] {\n  display: -webkit-box;\n  display: flex;\n}\n.comment .actuall-comment .infoside[data-v-3c9357f0] {\n  display: block;\n  padding: 10px;\n}\n.comment .actuall-comment .infoside .header[data-v-3c9357f0] {\n  display: inline-block;\n}\n.comment .actuall-comment .infoside .header div[data-v-3c9357f0] {\n  float: left;\n  margin-right: 12px;\n  vertical-align: middle;\n  height: 20px;\n  line-height: 20px;\n}\n.comment .actuall-comment .infoside .header .name[data-v-3c9357f0] {\n  font-size: 17px;\n  font-weight: bold;\n}\n.comment .actuall-comment .infoside .header .date[data-v-3c9357f0] {\n  color: gray;\n  font-size: 14px;\n}\n.comment .actuall-comment .imgside[data-v-3c9357f0] {\n  padding: 10px;\n}\n.comment .actuall-comment .imgside img[data-v-3c9357f0] {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n}\n.comment .togglebtn[data-v-3c9357f0] {\n  margin-left: auto;\n  margin-right: auto;\n  text-align: center;\n  color: gray;\n  font-size: 12px;\n}\n.comment .togglebtn[data-v-3c9357f0]:hover {\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".comment[data-v-3c9357f0] {\n  padding: 5px;\n  font-size: 15px;\n  word-break: break-all;\n}\n.comment .actuall-comment[data-v-3c9357f0] {\n  display: -webkit-box;\n  display: flex;\n}\n.comment .actuall-comment .infoside[data-v-3c9357f0] {\n  display: block;\n  padding: 10px;\n}\n.comment .actuall-comment .infoside .header[data-v-3c9357f0] {\n  display: inline-block;\n}\n.comment .actuall-comment .infoside .header div[data-v-3c9357f0] {\n  float: left;\n  margin-right: 12px;\n  vertical-align: middle;\n  height: 20px;\n  line-height: 20px;\n}\n.comment .actuall-comment .infoside .header .name[data-v-3c9357f0] {\n  font-size: 17px;\n  font-weight: bold;\n}\n.comment .actuall-comment .infoside .header .date[data-v-3c9357f0] {\n  color: gray;\n  font-size: 14px;\n}\n.comment .actuall-comment .imgside[data-v-3c9357f0] {\n  padding: 10px;\n}\n.comment .actuall-comment .imgside img[data-v-3c9357f0] {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n}\n.comment .togglebtn[data-v-3c9357f0] {\n  padding: 10px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  outline: inherit;\n  width: 100%;\n  text-align: center;\n  color: gray;\n  font-size: 12px;\n}", ""]);
 
 // exports
 
@@ -6750,7 +6752,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".comment[data-v-2a616ded] {\n  padding: 5px;\n  font-size: 15px;\n}\n.comment .actuall-comment[data-v-2a616ded] {\n  display: -webkit-box;\n  display: flex;\n}\n.comment .actuall-comment .infoside[data-v-2a616ded] {\n  display: block;\n  padding: 10px;\n  word-break: break-all;\n}\n.comment .actuall-comment .infoside header[data-v-2a616ded] {\n  display: inline-block;\n}\n.comment .actuall-comment .infoside header div[data-v-2a616ded] {\n  float: left;\n  margin: 5px;\n  vertical-align: middle;\n  height: 20px;\n  line-height: 20px;\n}\n.comment .actuall-comment .infoside header .name[data-v-2a616ded] {\n  font-size: 17px;\n  font-weight: bold;\n}\n.comment .actuall-comment .infoside header .date[data-v-2a616ded] {\n  color: gray;\n  font-size: 14px;\n}\n.comment .actuall-comment .imgside[data-v-2a616ded] {\n  padding: 10px;\n}\n.comment .actuall-comment .imgside img[data-v-2a616ded] {\n  width: 70px;\n  height: 70px;\n  border-radius: 50%;\n}", ""]);
+exports.push([module.i, ".comment[data-v-2a616ded] {\n  padding: 5px;\n  font-size: 15px;\n}\n.comment .actuall-comment[data-v-2a616ded] {\n  display: -webkit-box;\n  display: flex;\n}\n.comment .actuall-comment .infoside[data-v-2a616ded] {\n  display: block;\n  padding: 10px;\n  word-break: break-all;\n}\n.comment .actuall-comment .infoside header[data-v-2a616ded] {\n  display: inline-block;\n}\n.comment .actuall-comment .infoside header div[data-v-2a616ded] {\n  float: left;\n  margin: 5px;\n  vertical-align: middle;\n  height: 20px;\n  line-height: 20px;\n}\n.comment .actuall-comment .infoside header .name[data-v-2a616ded] {\n  font-size: 17px;\n  font-weight: bold;\n}\n.comment .actuall-comment .infoside header .date[data-v-2a616ded] {\n  color: gray;\n  font-size: 14px;\n}\n.comment .actuall-comment .imgside[data-v-2a616ded] {\n  padding: 10px;\n}\n.comment .actuall-comment .imgside img[data-v-2a616ded] {\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n}", ""]);
 
 // exports
 
@@ -38365,7 +38367,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "section",
     { staticClass: "comment-box" },
     [
       _c("vue-progress-bar"),
@@ -38432,11 +38434,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "article",
     { staticClass: "comment" },
     [
-      _c("div", { staticClass: "actuall-comment" }, [
-        _c("div", { staticClass: "imgside" }, [
+      _c("aside", { staticClass: "actuall-comment" }, [
+        _c("figure", { staticClass: "imgside" }, [
           _c("img", { attrs: { src: _vm.comment.user.avatar } })
         ]),
         _vm._v(" "),
@@ -38456,9 +38458,9 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c(
-        "div",
+        "button",
         { staticClass: "togglebtn", on: { click: _vm.toggleComments } },
-        [_vm._v("Reply")]
+        [_vm._v("\n        Reply\n    ")]
       ),
       _vm._v(" "),
       _c(
@@ -38515,7 +38517,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "article",
     [
       _c("Error", {
         attrs: { error: _vm.error, "toggle-error": _vm.toggleError }
@@ -38605,7 +38607,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "article",
     { staticClass: "reply-box" },
     [
       _vm.replies.length > 0
@@ -38661,11 +38663,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "comment" }, [
     _c("div", { staticClass: "actuall-comment" }, [
-      _c("div", { staticClass: "imgside" }, [
+      _c("figure", { staticClass: "imgside" }, [
         _c("img", { attrs: { src: _vm.reply.user.avatar } })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "infoside" }, [
+      _c("summary", { staticClass: "infoside" }, [
         _c("header", [
           _c("div", { staticClass: "name" }, [
             _vm._v(_vm._s(_vm.reply.user.name))
@@ -38688,10 +38690,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/error/Error.vue?vue&type=template&id=6d269da6&scoped=true&":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/error/Error.vue?vue&type=template&id=6d269da6&scoped=true& ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/error/Error.vue?vue&type=template&id=6d269da6&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/error/Error.vue?vue&type=template&id=6d269da6& ***!
+  \**************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -50892,6 +50894,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
+ //options of fixed top progress-bar
 
 var options = {
   color: '#00be06',
@@ -51409,7 +51412,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Error_vue_vue_type_template_id_6d269da6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Error.vue?vue&type=template&id=6d269da6&scoped=true& */ "./resources/js/components/error/Error.vue?vue&type=template&id=6d269da6&scoped=true&");
+/* harmony import */ var _Error_vue_vue_type_template_id_6d269da6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Error.vue?vue&type=template&id=6d269da6& */ "./resources/js/components/error/Error.vue?vue&type=template&id=6d269da6&");
 /* harmony import */ var _Error_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Error.vue?vue&type=script&lang=js& */ "./resources/js/components/error/Error.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -51421,11 +51424,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _Error_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Error_vue_vue_type_template_id_6d269da6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Error_vue_vue_type_template_id_6d269da6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Error_vue_vue_type_template_id_6d269da6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Error_vue_vue_type_template_id_6d269da6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "6d269da6",
+  null,
   null
   
 )
@@ -51451,19 +51454,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/error/Error.vue?vue&type=template&id=6d269da6&scoped=true&":
-/*!********************************************************************************************!*\
-  !*** ./resources/js/components/error/Error.vue?vue&type=template&id=6d269da6&scoped=true& ***!
-  \********************************************************************************************/
+/***/ "./resources/js/components/error/Error.vue?vue&type=template&id=6d269da6&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/error/Error.vue?vue&type=template&id=6d269da6& ***!
+  \********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Error_vue_vue_type_template_id_6d269da6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Error.vue?vue&type=template&id=6d269da6&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/error/Error.vue?vue&type=template&id=6d269da6&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Error_vue_vue_type_template_id_6d269da6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Error_vue_vue_type_template_id_6d269da6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Error.vue?vue&type=template&id=6d269da6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/error/Error.vue?vue&type=template&id=6d269da6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Error_vue_vue_type_template_id_6d269da6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Error_vue_vue_type_template_id_6d269da6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Error_vue_vue_type_template_id_6d269da6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -51504,7 +51507,7 @@ window.fbAsyncInit = function () {
   js.id = id;
   js.src = "https://connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
-})(document, 'script', 'facebook-jssdk');
+})(document, 'script', 'facebook-jssdk'); //If already logged in with fb, it doesn't ask to login again
 
 /***/ }),
 
@@ -51518,7 +51521,7 @@ window.fbAsyncInit = function () {
 $('.custom-file-input').on('change', function () {
   var fileName = $(this).val().split('\\').pop();
   $(this).next('.custom-file-label').addClass("selected").html(fileName);
-});
+}); //change selected file name
 
 /***/ }),
 

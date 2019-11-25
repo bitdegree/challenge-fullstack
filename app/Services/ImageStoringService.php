@@ -11,7 +11,12 @@ class ImageStoringService
 {
     private $avatarName;
 
-    public function updateAvatarAndGetName(UsersUpdateRequest $request)
+    /**
+     * @param UsersUpdateRequest $request
+     * @return string
+     * @throws UnableToUpdateImageException
+     */
+    public function updateAvatarAndGetName(UsersUpdateRequest $request): string
     {
         try {
             $file = $request->file('avatar');

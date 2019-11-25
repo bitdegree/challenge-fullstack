@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use http\Env\Request;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -42,8 +43,7 @@ class Handler extends ExceptionHandler
     {
         if ($request->request->has('textField')) {
             return response()->json(['error' => 'Input field must contain at least 8 symbols'], 200);
-        } else {
-            return parent::render($request, $exception);
         }
+        return parent::render($request, $exception);
     }
 }

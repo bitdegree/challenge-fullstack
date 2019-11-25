@@ -3,6 +3,7 @@ require('./bootstrap');
 import Vue from 'vue'
 import VueProgressBar from 'vue-progressbar'
 
+//options of fixed top progress-bar
 const options = {
     color: '#00be06',
     failedColor: '#ff2f34',

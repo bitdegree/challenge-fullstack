@@ -5,17 +5,26 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Http\Requests\ReplyStoreRequest;
 use App\Reply;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class RepliesController extends Controller
 {
-    public function index($commentId)
+    /**
+     * @param int $commentId
+     * @return Response
+     */
+    public function index(int $commentId): Response
     {
         $replies = Reply::where('comment_id', $commentId)->with('user')->orderBy('id', 'desc')->get();
         return response(['replies' => $replies], 200);
     }
 
-    public function store(ReplyStoreRequest $request)
+    /**
+     * @param ReplyStoreRequest $request
+     * @return Response
+     */
+    public function store(ReplyStoreRequest $request): Response
     {
         Comment::findOrFail($request->id)->replies()->create([
             'textField' => $request->textField,

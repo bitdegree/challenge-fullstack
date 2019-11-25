@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <article>
         <Error :error="error" :toggle-error="toggleError"></Error>
         <form class="form" @submit.prevent="submit()">
             <input type="text" class="form-control-plaintext textField"
@@ -7,7 +7,7 @@
             <button :disabled="disabled" class="btn btn-success submit" type="submit">Post</button>
             <button :disabled="disabled" class="btn btn-dark submit" type="reset">Cancel</button>
         </form>
-    </div>
+    </article>
 </template>
 
 <script>
@@ -96,5 +96,5 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "form";
+    @import "Form";
 </style>
