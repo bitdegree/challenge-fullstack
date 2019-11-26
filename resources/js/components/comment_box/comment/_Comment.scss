@@ -1,0 +1,49 @@
+.comment{
+    padding: 5px;
+    font-size: 15px;
+    word-break: break-all;
+    .actuall-comment{
+        display: flex;
+        .infoside{
+            display: block;
+            .header{
+                display: inline-block;
+                div{
+                    float: left;
+                    margin-right: 12px;
+                    vertical-align: middle;
+                    height: 20px;
+                    line-height: 20px;
+                }
+                .name{
+                    font-size: 17px;
+                    font-weight: bold;
+                }
+                .date{
+                    color: gray;
+                    font-size: 14px;
+                }
+            }
+            padding: 10px;
+        }
+        .imgside{
+            img{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+            padding: 10px;
+        }
+    }
+    .togglebtn{
+        padding: 10px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        outline: inherit;
+        width: 100%;
+        text-align: center;
+        color: gray;
+        font-size: 12px;
+    }
+}

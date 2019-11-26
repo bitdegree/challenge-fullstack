@@ -1,23 +1,88 @@
-# Task for Fullstack Developer
+# Comment box for Bitdegree
 
-## Few simple steps
+Simple, reusable and robust comment box made with Laravel, Vue and Scss
 
-1. Fork this repo
-2. Create a simple comment box
-3. Prepare pull request and let us know that you are done
+## Getting Started
 
-## Requirements
-- Only authenticated users should be able to post a comment or reply.
-- Ability to authenticate using at least 1 social network
-- Create Seeders
-- It should be possible to reply to nested comments
-- Design must be responsive.
-- Use Laravel and Vue.js
-- Use CSS preprocessor (SCSS preferred).
-- Use a Javascript task-runner Webpack
-- Comment box design should be as close to example as possible
+These instructions will get you a copy of the project up and running on your local machine.
 
-## Few tips
-- We always prefer the code that is robust, easy to read and re-usable
-- Make design user friendly
-- Have fun!
+### Prerequisites
+
+PHP 7.1
+ 
+Composer
+
+Node.js
+
+
+### Installing
+
+navigate to cloned project
+
+```
+cd ~/challenge-fullstack
+```
+
+create .env file
+
+```
+cp .env.example .env (or rename manually and don't forget to set correct connection)
+```
+Install php dependencies
+
+```
+composer install
+```
+
+Install javascript dependencies
+
+```
+npm install
+```
+
+Generate key
+
+```
+php artisan key:generate
+```
+Migrate database and seed
+
+```
+php artisan migrate --seed
+```
+
+
+Create symlink
+
+```
+php artisan storage:link
+```
+
+
+Set up server:
+
+```
+php artisan serve
+```
+
+
+Interface is user friendly just check it out, no explanation is needed http://localhost:8000
+
+### About comment-box component
+
+Component takes 2 props: `route_name` and `user`.
+
+`route_name` should be used as ID string, if you use the same id on different pages, you'll get the same comment box
+
+`user` should be used as boolean to restrict or allow users to post
+
+### About codebase
+
+I did my best to make code maintainable by separating concerns. Controllers are about 2 lines long. Also, 
+in order to make code readable I used PSR-12 coding standart. I tried to made my code robust by validating data 
+using FormRequests, handing common errors and using modular approach while making style.
+
+
+### In addition
+
+I added profile page in order to let anyone change their default photo to desired new one
