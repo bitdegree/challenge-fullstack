@@ -1,0 +1,89 @@
+.flex-user-container {
+    display: flex;
+    flex-wrap: nowrap;
+    min-width: 0rem;
+    & .user-info{
+        display: inline-flex;
+    }
+    & .user-logo{
+        width: 60px;
+        height: auto;
+    }
+    & .user-comment{
+        word-wrap: break-word;
+    }
+    @media (min-width: 768px) {
+        min-width: 10rem;
+    }
+    @media (min-width: 0px) {
+        min-width: 15rem;
+    }
+  }
+
+  .navbar-width{
+      min-width: 0rem;
+      @media (min-width: 768px) {
+        min-width: 10rem;
+    }
+    @media (min-width: 0px) {
+        min-width: 20rem;
+    }
+  }
+
+  .card-display{
+      display: inline-block;
+  }
+
+  body{
+    font-family: 'NTR', sans-serif;
+  }
+
+  .btn-link:focus, .btn.focus{
+    border: none;
+    outline:none;
+    box-shadow: none;
+    }
+
+    .error{
+        border-style: solid;
+        border-color: #ff0000;
+        border-width: 2px;
+        border-radius: 6px;
+    }
+
+    .error-text{
+        color: red;
+    }
+
+    input:focus{
+        outline: none;
+    }
+
+    input[type=text] {
+        width: 300px;
+        background:
+            linear-gradient(rgb(172, 172, 172), rgb(172, 172, 172)) center bottom 5px /calc(100% - 10px) 2px no-repeat;
+        background-color: #fcfcfc;
+        border: 0px solid;
+        padding: 10px;
+      }
+
+      .container-bg{
+        border-radius: 10px;
+        border: 0px;
+        background-color: #f4f4f4;
+        -webkit-box-shadow: -5px 6px 5px 0px rgba(186,186,186,1);
+        -moz-box-shadow: -5px 6px 5px 0px rgba(186,186,186,1);
+        box-shadow: -5px 6px 5px 0px rgba(186,186,186,1);
+      }
+
+      .new-post{
+          background-color: #f4f4f4;
+          input{
+              background-color: #f4f4f4;
+          }
+      }
+
+
+
+
