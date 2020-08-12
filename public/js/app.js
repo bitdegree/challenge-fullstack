@@ -2130,7 +2130,6 @@ __webpack_require__.r(__webpack_exports__);
       this.isLoading = true;
       this.posts = [];
       this.onePost = true;
-      console.log("IKI CIA");
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/post/" + id).then(function (response) {
         _this.posts = response.data.posts;
         _this.count = response.data.count;
@@ -2146,7 +2145,6 @@ __webpack_require__.r(__webpack_exports__);
       this.posts = [];
       this.onePost = false;
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/post-list/" + allPosts).then(function (response) {
-        console.log(response.data);
         _this.posts = response.data.posts;
         _this.count = response.data.count;
         _this.isLoading = false;
@@ -2156,7 +2154,6 @@ __webpack_require__.r(__webpack_exports__);
       jquery__WEBPACK_IMPORTED_MODULE_3___default()("#" + id).fadeToggle("slow", function () {});
     },
     getDepth: function getDepth(number) {
-      console.log(number);
       return number;
     }
   },
@@ -2218,7 +2215,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     toggleError: function toggleError(message) {
-      console.log(message);
       this.error = message;
     },
     createPost: function createPost() {
