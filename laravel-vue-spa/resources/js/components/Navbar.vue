@@ -10,12 +10,12 @@
       </button>
 
       <div id="navbarToggler" class="collapse navbar-collapse">
-        <ul class="navbar-nav">
+<!--        <ul class="navbar-nav">
           <locale-dropdown />
-          <!-- <li class="nav-item">
+          &lt;!&ndash; <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
-          </li> -->
-        </ul>
+          </li> &ndash;&gt;
+        </ul>-->
 
         <ul class="navbar-nav ml-auto">
           <!-- Authenticated -->
@@ -64,7 +64,7 @@ import LocaleDropdown from './LocaleDropdown'
 
 export default {
   components: {
-    LocaleDropdown
+/*    LocaleDropdown*/
   },
 
   data: () => ({
