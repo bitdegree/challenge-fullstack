@@ -9,13 +9,17 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "inertiajs/inertia-laravel": "^0.3.5",
         "laravel/framework": "^8.12",
+        "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
-        "twbs/bootstrap": "5.0.0-beta3"
+        "laravel/ui": "^3.2",
+        "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "laravel/breeze": "^1.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
