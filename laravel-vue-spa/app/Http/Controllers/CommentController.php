@@ -10,6 +10,14 @@ class CommentController extends Controller
 
     public function show_all()
     {
-        return response(Comment::all(),201);
+        $result = [];
+        foreach (Comment::all() as $comment){
+            array_push($result,[
+                'user_name' => $comment->user->name,
+                'description' => $comment->description,
+                'created' => $comment->created_at,
+            ]);
+        }
+        return response($result,201);
     }
 }
