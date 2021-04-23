@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/password', [PasswordController::class, 'update']);
 
     Route::get('comments', [CommentController::class, 'show_all']);
+    Route::post('comments', [CommentController::class, 'add_comment']);
+    Route::delete('comments/{id}', [CommentController::class, 'delete']);
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
