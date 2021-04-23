@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow overflow-auto" style="width: 30rem;">
+  <div class="card shadow overflow-auto col-11 col-sm-11 col-md-9 col-lg-8 col-xl-8">
     <div class="d-flex p-4" v-if="commentsleft != 0" >
       <span id="commentsleft" @click="numberofcomments += 5">{{commentsleft}} comments earlier</span>
     </div>
